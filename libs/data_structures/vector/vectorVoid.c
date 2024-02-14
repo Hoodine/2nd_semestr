@@ -1,11 +1,14 @@
 #include <malloc.h>
 #include <stdio.h>
 #include "vectorVoid.h"
+#include <memory.h>
 
 vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
     if (n == 0)
         return (vectorVoid) {NULL, 0, n, baseTypeSize};
+
     vectorVoid v = {malloc(baseTypeSize), 0, n, baseTypeSize};
+
     if (v.data != NULL)
         return v;
     else {
@@ -15,12 +18,10 @@ vectorVoid createVectorV(size_t n, size_t baseTypeSize) {
 }
 
 void reserveV(vectorVoid *v, size_t newCapacity) {
-    //проверка особых случаев
     if (newCapacity == 0) {
         v->data = NULL;
         v->size = newCapacity;
         v->capacity = newCapacity;
-
     } else if (newCapacity < v->size) {
         v->data = realloc(v->data, v->baseTypeSize * newCapacity);
         v->size = newCapacity;
@@ -50,4 +51,45 @@ void deleteVectorV(vectorVoid *v) {
     v->size = 0;
     v->capacity = 0;
     v->baseTypeSize = 0;
+}
+
+bool isEmptyV(vectorVoid *v) {
+    return v->size == 0;
+}
+
+bool isFullV(vectorVoid *v) {
+    return v->size == v->capacity;
+}
+
+void getVectorValueV(vectorVoid *v, size_t index, void *destination) {
+    char *source = (char *) v->data + index * v->baseTypeSize;
+    memcpy(destination, source, v->baseTypeSize);
+}
+
+void setVectorValueV(vectorVoid *v, size_t index, void *source) {
+    char *destination = (char *) v->data + index * v->baseTypeSize;
+    memcpy(destination, source, v->baseTypeSize);
+}
+
+void pushBackV(vectorVoid *v, void *source) {
+    if (isEmptyV(v)) {
+        reserveV(v, 1);
+        setVectorValueV(v, 0, source);
+        v->size++;
+    } else {
+        if (isFullV(v))
+            reserveV(v, v->capacity * 2);
+
+        setVectorValueV(v, v->size, source);
+        v->size++;
+    }
+}
+
+void popBackV(vectorVoid *v) {
+    if (!isEmptyV(v)) {
+        v->size--;
+    } else {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
 }

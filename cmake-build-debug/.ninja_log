@@ -13,3 +13,10 @@
 5	87	7295963242241637	libs/algorithms/CMakeFiles/algorithms.dir/array/unordered_set.c.obj	656655dfef423922
 6	90	7295963242271641	libs/algorithms/CMakeFiles/algorithms.dir/array/ordered_set.c.obj	2f43f8026d15bbeb
 3	48	7296104053594302	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	6c7db42cf1b349fe
+2	44	7296157610330011	CMakeFiles/2ndsemestr.dir/vector_test.c.obj	44691b0d0c3a3dd7
+3	52	7296157610410014	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	6c7db42cf1b349fe
+2	40	7296157833097828	CMakeFiles/2ndsemestr.dir/main.c.obj	b351adbac191c050
+3	50	7296157833197974	libs/data_structures/CMakeFiles/data_structures.dir/vector/vectorVoid.c.obj	3297805c77eef72d
+50	82	7296157833517810	libs/data_structures/libdata_structures.a	18e05656d307a398
+1	37	7296158196815177	CMakeFiles/2ndsemestr.dir/vector_test.c.obj	44691b0d0c3a3dd7
+37	78	7296158197196190	2ndsemestr.exe	f4b1d49b2010b1e2

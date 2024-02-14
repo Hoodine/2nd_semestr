@@ -92,9 +92,3 @@ void test() {
     test_back_oneElementInVector();
     test_front_oneElementInVector();
 }
-
-int main() {
-    test();
-
-    return 0;
-}

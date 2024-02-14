@@ -1,11 +1,8 @@
 #ifndef INC_2NDSEMESTR_VECTORVOID_H
 #define INC_2NDSEMESTR_VECTORVOID_H
 
-#ifndef UNIKUM_VECTORVOID_H
-#define UNIKUM_VECTORVOID_H
-
 #include <limits.h>
-
+#include <stdbool.h>
 
 typedef struct vectorVoid {
     void *data;          // указатель на нулевой элемент вектора
@@ -28,5 +25,24 @@ void clearV(vectorVoid *v);
 
 //освобождает память, выделенную вектору
 void deleteVectorV(vectorVoid *v);
+
+// Проверяет, является ли вектор пустым
+bool isEmptyV(vectorVoid *v);
+
+// Проверяет, является ли вектор полным
+bool isFullV(vectorVoid *v);
+
+// записывает по адресу destination index-ый элемент вектора v
+void getVectorValueV(vectorVoid *v, size_t index, void *destination);
+
+// записывает на index-ый элемент вектора v значение, расположенное по адресу source
+void setVectorValueV(vectorVoid *v, size_t index, void *source);
+
+// добавляет элемент x в конец вектора v. Если вектор заполнен,
+// увеличивает количество выделенной памяти в 2 раза
+void pushBackV(vectorVoid *v, void *source);
+
+// удаляет последний элемент из вектора.
+void popBackV(vectorVoid *v);
 
 #endif
