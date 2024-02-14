@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include "libs/data_structures/vector/vector.h"
 #include <assert.h>
 

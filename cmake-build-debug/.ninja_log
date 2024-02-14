@@ -79,3 +79,7 @@
 3	50	7296052084906236	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	6c7db42cf1b349fe
 50	81	7296052085226240	libs/data_structures/libdata_structures.a	c692a8a2055320a2
 81	132	7296052085696248	2ndsemestr.exe	133a36527cfd5bb7
+2	43	7296104053544141	CMakeFiles/2ndsemestr.dir/main.c.obj	b351adbac191c050
+3	48	7296104053594302	libs/data_structures/CMakeFiles/data_structures.dir/vector/vector.c.obj	6c7db42cf1b349fe
+48	77	7296104053884135	libs/data_structures/libdata_structures.a	c692a8a2055320a2
+77	121	7296104054304309	2ndsemestr.exe	133a36527cfd5bb7
