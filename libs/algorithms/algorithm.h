@@ -1,0 +1,8 @@
+//
+// Created by Егор Сауленко on 01.02.2024.
+//
+
+#ifndef INC_2NDSEMESTR_ALGORITHMS_H
+#define INC_2NDSEMESTR_ALGORITHMS_H
+
+#endif //INC_2NDSEMESTR_ALGORITHMS_H
