@@ -1,7 +1,12 @@
 #include <stdio.h>
-#include "libs/data_structures/bitset/bitset.h"
+#include <stdint.h>
+#include "libs/data_structures/vector/vector.h"
 
 int main() {
-    printf("HUI");
+    vector v = createVector(0);
+    printf("%d %d\n", v.size, v.capacity);
+    shrinkToFit(&v);
+    printf("%d %d\n", v.size, v.capacity);
+
     return 0;
 }

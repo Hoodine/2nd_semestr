@@ -75,12 +75,12 @@
 	"dependencies" : 
 	[
 		{
-			"backtrace" : 3,
-			"id" : "data_structures::@396ab3a44f37844d7cdb"
-		},
-		{
 			"backtrace" : 2,
 			"id" : "algorithms::@4f84be16bc75261b2db5"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "data_structures::@396ab3a44f37844d7cdb"
 		}
 	],
 	"id" : "2ndsemestr::@6890427a1f51a3e7e1df",
