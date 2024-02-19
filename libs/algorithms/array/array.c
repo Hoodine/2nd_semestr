@@ -10,9 +10,10 @@ void inputArray_(int *const a, const size_t n) {
 }
 
 void outputArray_(const int *const a, const size_t n) {
+    printf("|");
     for (size_t i = 0; i < n; i++)
         printf("%d ", a[i]);
-    printf("\n");
+    printf("\b|\n");
 }
 
 void append_(int *const a, size_t *const n, const int value) {
