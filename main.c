@@ -10,21 +10,30 @@ int getSum(int *a, int n) {
 }
 
 int main() {
-    matrix *ms = getMemArrayOfMatrices(1, 3, 3);
+    matrix ms = getMemMatrix(3, 3);
+    //matrix ms2 = getMemMatrix(3, 3);
 
-    inputMatrices(ms, 1);
+    inputMatrix(&ms);
+    //inputMatrix(&ms2);
 
-    swapRows(ms, 0, 1);
+    //swapRows(&ms, 0, 1);
 
-    swapColumns(ms, 0, 1);
+    //swapColumns(&ms, 0, 1);
 
-    insertionSortRowsMatrixByRowCriteria(ms, getSum);
+    //insertionSortRowsMatrixByRowCriteria(&ms, getSum);
 
     //selectionSortColsMatrixByColCriteria(ms, getSum);
 
-    outputMatrices(ms, 1);
+    if (isSymmetricMatrix(&ms))
+        printf("Heheheha, Grrrr\n");
+    else
+        printf("No hehehaha\n");
 
-    freeMemMatrices(ms, 1);
+    outputMatrix(ms);
+    //outputMatrix(ms2);
+
+    freeMemMatrix(&ms);
+    //freeMemMatrix(&ms2);
 
     printf("I love programming (well actually i hate matrix tbh)");
 
