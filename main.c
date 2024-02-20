@@ -29,6 +29,13 @@ int main() {
     else
         printf("No hehehaha\n");
 
+    //transposeMatrix(&ms);
+
+    position pos;
+    pos = getMaxValuePos(ms);
+
+    printf("pos = %d, %d\n", pos.rowIndex, pos.colIndex);
+
     outputMatrix(ms);
     //outputMatrix(ms2);
 

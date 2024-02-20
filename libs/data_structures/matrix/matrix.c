@@ -27,6 +27,8 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols) {
 void freeMemMatrix(matrix *m) {
     for (int i = 0; i < m->nRows; ++i)
         free(m->values[i]);
+    m->nRows = 0;
+    m->nCols = 0;
 }
 
 void freeMemMatrices(matrix *ms, int nMatrices) {
@@ -170,9 +172,70 @@ bool isSymmetricMatrix(matrix *m) {
         for (int i = 0; i < m->nRows; ++i) {
             for (int j = 0; j < m->nCols; ++j) {
                 if (i != j && m->values[i][j] != m->values[j][i])
-                        return false;
+                    return false;
             }
         }
 
     return true;
+}
+
+void swap(int *a, int *b) {
+    int temp = *b;
+    *b = *a;
+    *a = temp;
+}
+
+void transposeSquareMatrix(matrix *m) {
+    matrix temp = getMemMatrix(m->nRows, m->nCols);
+    for (int i = 0; i < m->nRows; ++i) {
+        for (int j = 0; j < m->nCols; ++j) {
+            temp.values[j][i] = m->values[i][j];
+        }
+    }
+
+    m->values = temp.values;
+}
+
+void transposeMatrix(matrix *m) {
+    matrix temp = getMemMatrix(m->nCols, m->nRows);
+    for (int i = 0; i < m->nRows; ++i) {
+        for (int j = 0; j < m->nCols; ++j) {
+            temp.values[j][i] = m->values[i][j];
+        }
+    }
+
+    swap(&m->nRows, &m->nCols);
+    m->values = temp.values;
+}
+
+position getMinValuePos(matrix m) {
+    position pos = {0, 0};
+    int min = m.values[0][0];
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+            if (m.values[i][j] < min) {
+                min = m.values[i][j];
+                pos.rowIndex = i;
+                pos.colIndex = j;
+            }
+        }
+    }
+
+    return pos;
+}
+
+position getMaxValuePos(matrix m) {
+    position pos = {0, 0};
+    int max = m.values[0][0];
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+            if (m.values[i][j] > max) {
+                max = m.values[i][j];
+                pos.rowIndex = i;
+                pos.colIndex = j;
+            }
+        }
+    }
+
+    return pos;
 }
