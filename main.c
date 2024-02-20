@@ -18,9 +18,9 @@ int main() {
 
     swapColumns(ms, 0, 1);
 
-    //insertionSortRowsMatrixByRowCriteria(ms, getSum);
+    insertionSortRowsMatrixByRowCriteria(ms, getSum);
 
-    selectionSortColsMatrixByColCriteria(ms, getSum);
+    //selectionSortColsMatrixByColCriteria(ms, getSum);
 
     outputMatrices(ms, 1);
 

@@ -76,28 +76,28 @@ void swapColumns(matrix *m, int j1, int j2) {
 
 void insertionSortRowsMatrixByRowCriteria(matrix *m, int (*criteria)(int *, int)) {
     int temp[m->nRows];
+    int temp_pepe;
     for (int i = 0; i < m->nRows; ++i) {
-        int result = criteria(m->values[i], m->nCols);
-        temp[i] = result;
+        int res = criteria(m->values[i], m->nCols);
+        temp[i] = res;
     }
 
-    bool no_swap;
-    for (int j = m->nRows - 1; j >= 0; --j) {
-        no_swap = 1;
-        for (int i = 0; i < m->nRows - 1; ++i) {
-            if (temp[i] <= temp[i + 1]) continue;
-            else {
-                int temp_i = temp[i];
-                temp[i] = temp[i + 1];
-                temp[i + 1] = temp_i;
-
-                swapRows(m, i, i + 1);
-                no_swap = 0;
+    int min_idx;
+    for (int j = 0; j < m->nRows; ++j) {
+        min_idx = j;
+        for (int i = j + 1; i < m->nRows; ++i) {
+            if (temp[i] < temp[min_idx]) {
+                min_idx = i;
             }
         }
 
-        if (no_swap)
-            break;
+        if (min_idx != j) {
+            temp_pepe = temp[j];
+            temp[j] = temp[min_idx];
+            temp[min_idx] = temp_pepe;
+
+            swapRows(m, j, min_idx);
+        }
     }
 }
 
@@ -126,3 +126,4 @@ void selectionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int)
         swapColumns(m, min_pos, i);
     }
 }
+

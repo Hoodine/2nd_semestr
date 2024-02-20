@@ -85,3 +85,10 @@
 3	55	7300650740329188	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	3aa050a042eb5703
 55	84	7300650740615211	libs/data_structures/libdata_structures.a	4030f612f4fc6e52
 84	133	7300650741085219	2ndsemestr.exe	26e3d24229c790f6
+1	59	7301370882373146	CMakeFiles/2ndsemestr.dir/main.c.obj	b351adbac191c050
+3	80	7301370882553122	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	3aa050a042eb5703
+80	146	7301370883213122	libs/data_structures/libdata_structures.a	4030f612f4fc6e52
+146	235	7301370884093120	2ndsemestr.exe	26e3d24229c790f6
+2	58	7301371749652824	libs/data_structures/CMakeFiles/data_structures.dir/matrix/matrix.c.obj	3aa050a042eb5703
+58	89	7301371749974812	libs/data_structures/libdata_structures.a	4030f612f4fc6e52
+89	136	7301371750414578	2ndsemestr.exe	26e3d24229c790f6
