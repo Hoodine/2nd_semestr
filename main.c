@@ -265,6 +265,24 @@ void test_transposeSquareMatrix() {
     assert(areTwoMatricesEqual(&m1, &exp_res1) == 1);
 }
 
+void test_transposeMatrix() {
+    matrix m = createMatrixFromArray((int[]) {
+                                             1, 2, 3,
+                                             4, 5, 6,},
+                                     2, 3);
+    matrix exp_res = createMatrixFromArray((int[]) {
+                                                   1, 4,
+                                                   2, 5,
+                                                   3, 6,},
+                                           3, 2);
+
+    transposeMatrix(&m);
+
+    assert(areTwoMatricesEqual(&m, &exp_res));
+    freeMemMatrix(&m);
+    freeMemMatrix(&exp_res);
+}
+
 void test_getMinValuePos() {
     //нахождение минимума с 1 значением
     matrix m = createMatrixFromArray((int[]) {1, 1, 1,
@@ -320,6 +338,7 @@ void test() {
     test_transposeSquareMatrix();
     test_getMinValuePos();
     test_getMaxValuePos();
+    test_transposeMatrix();
 }
 
 int main() {
