@@ -80,4 +80,17 @@ position getMinValuePos(matrix m);
 // возвращает позицию максимального элемента матрицы m.
 position getMaxValuePos(matrix m);
 
+
+// возвращает матрицу размера nRows на nCols,
+// построенную из элементов массива a
+matrix createMatrixFromArray(const int *a, int nRows, int nCols);
+
+// возвращает указатель на нулевую матрицу массива из nMatrices матриц, размещенных
+// в динамической памяти, построенных из элементов массива a
+matrix *createArrayOfMatrixFromArray(const int *values,
+                                     int nMatrices, int nRows, int nCols);
+
+// Возвращает сумму элементов одномерного массива
+int getSum(int *a, int n);
+
 #endif

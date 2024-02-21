@@ -73,12 +73,6 @@ build CMakeFiles/2ndsemestr.dir/libs/data_structures/bitset/bitset.c.obj: C_COMP
   OBJECT_DIR = CMakeFiles\2ndsemestr.dir
   OBJECT_FILE_DIR = CMakeFiles\2ndsemestr.dir\libs\data_structures\bitset
 
-build CMakeFiles/2ndsemestr.dir/vector_test.c.obj: C_COMPILER__2ndsemestr_unscanned_Debug C$:/Users/Egor$ Saulenko/CLionProjects/2nd_semestr/vector_test.c || cmake_object_order_depends_target_2ndsemestr
-  DEP_FILE = CMakeFiles\2ndsemestr.dir\vector_test.c.obj.d
-  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
-  OBJECT_DIR = CMakeFiles\2ndsemestr.dir
-  OBJECT_FILE_DIR = CMakeFiles\2ndsemestr.dir
-
 
 # =============================================================================
 # Link build statements for EXECUTABLE target 2ndsemestr
@@ -87,7 +81,7 @@ build CMakeFiles/2ndsemestr.dir/vector_test.c.obj: C_COMPILER__2ndsemestr_unscan
 #############################################
 # Link the executable 2ndsemestr.exe
 
-build 2ndsemestr.exe: C_EXECUTABLE_LINKER__2ndsemestr_Debug CMakeFiles/2ndsemestr.dir/main.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/array/array.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/algorithm.c.obj CMakeFiles/2ndsemestr.dir/libs/data_structures/bitset/bitset.c.obj CMakeFiles/2ndsemestr.dir/vector_test.c.obj | libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a libs/algorithms/libalgorithms.a || libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a
+build 2ndsemestr.exe: C_EXECUTABLE_LINKER__2ndsemestr_Debug CMakeFiles/2ndsemestr.dir/main.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/array/array.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/algorithm.c.obj CMakeFiles/2ndsemestr.dir/libs/data_structures/bitset/bitset.c.obj | libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a libs/algorithms/libalgorithms.a || libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a
   FLAGS = -g
   LINK_LIBRARIES = libs/algorithms/libalgorithms.a  libs/data_structures/libdata_structures.a  libs/algorithms/libalgorithms.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\2ndsemestr.dir
