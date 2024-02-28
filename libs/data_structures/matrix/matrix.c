@@ -116,8 +116,7 @@ void selectionSortColsMatrixByColCriteria(matrix *m, int (*criteria)(int *, int)
         for (int j = 0; j < m->nRows; ++j)
             temp_column[j] = m->values[j][i];
 
-
-        int result = criteria(temp_column, m->nCols);
+        int result = criteria(temp_column, m->nRows);
         temp[i] = result;
     }
 
