@@ -48,3 +48,10 @@
 51	96	7302200018860532	2ndsemestr.exe	9ad678e20300cc9b
 2	53	7302204689938661	CMakeFiles/2ndsemestr.dir/main.c.obj	b351adbac191c050
 54	99	7302204690368453	2ndsemestr.exe	9ad678e20300cc9b
+2	165	7308072035357476	CMakeFiles/2ndsemestr.dir/main.c.obj	b351adbac191c050
+3	166	7308072035367478	libs/algorithms/CMakeFiles/algorithms.dir/array/ordered_set.c.obj	2f43f8026d15bbeb
+4	167	7308072035377489	libs/algorithms/CMakeFiles/algorithms.dir/array/unordered_set.c.obj	656655dfef423922
+168	210	7308072035807640	libs/algorithms/libalgorithms.a	c12f8d8a22902a94
+210	286	7308072036537661	2ndsemestr.exe	9ad678e20300cc9b
+2	41	7308078250401823	CMakeFiles/2ndsemestr.dir/main.c.obj	b351adbac191c050
+41	87	7308078250841795	2ndsemestr.exe	9ad678e20300cc9b

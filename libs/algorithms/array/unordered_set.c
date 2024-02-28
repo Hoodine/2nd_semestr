@@ -45,19 +45,31 @@ size_t unordered_array_set_isSubset(unordered_array_set subset, unordered_array_
     return true;
 }
 
-//Сравнивает два целых числа, представленных в виде указателей на void.
-static int compare_ints(const void *a, const void *b) {
-    return *(int *) a - *(int *) b;
-}
-
 bool unordered_array_set_isEqual(unordered_array_set set1, unordered_array_set set2) {
     if (set1.size != set2.size)
-        return 0;
+        return false;
 
-    qsort(set1.data, set1.size, sizeof(int), compare_ints);
-    qsort(set2.data, set2.size, sizeof(int), compare_ints);
+    size_t max_len = set1.size > set2.size ? set1.size : set2.size;
+    for (int i = 0; i < max_len; i++) {
+        int is_elem_in_b = false;
+        for (int j = 0; j < set2.size; j++)
+            if (set2.data[j] == set1.data[i]) {
+                is_elem_in_b = true;
+                break;
+            }
 
-    return memcmp(set1.data, set2.data, sizeof(int) * set1.size) == 0;
+        int is_elem_in_a = false;
+        for (int k = 0; k < set2.size; k++)
+            if (set1.data[k] == set2.data[i]) {
+                is_elem_in_a = true;
+                break;
+            }
+
+        if (i < set1.size && !is_elem_in_b || i < set2.size && !is_elem_in_a)
+            return false;
+    }
+
+    return true;
 }
 
 void unordered_array_set_isAbleAppend(unordered_array_set *set) {

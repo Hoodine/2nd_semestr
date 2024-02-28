@@ -30,7 +30,7 @@ bool ordered_array_set_isEqual(ordered_array_set set1, ordered_array_set set2) {
     if (set1.size != set2.size)
         return 0;
 
-    return memcmp(set1.data, set2.data, sizeof(int) * set1.size) == 0;
+    return set1.data == set2.data;
 }
 
 bool ordered_array_set_isSubset(ordered_array_set subset, ordered_array_set set) {
