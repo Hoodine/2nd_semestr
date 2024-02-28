@@ -27,8 +27,49 @@ void test_task1() {
             assert(m.values[i][j] == exp_res.values[i][j]);
 }
 
-int main() {
+int getMax(int *a, int n) {
+    int max = a[0];
+
+    for (int i = 1; i < n; ++i) {
+        max = max > a[i] ? max : a[i];
+    }
+
+    return max;
+}
+
+void sortRowsByMinElement(matrix *m) {
+    insertionSortRowsMatrixByRowCriteria(m, getMax);
+}
+
+void task2(matrix *m) {
+    sortRowsByMinElement(m);
+}
+
+void test_task2() {
+    matrix m = createMatrixFromArray((int[]) {7, 1, 2,
+                                              1, 8, 1,
+                                              3, 2, 3},
+                                     3, 3);
+    matrix exp_res = createMatrixFromArray((int[]) {3, 2, 3,
+                                                    7, 1, 2,
+                                                    1, 8, 1},
+                                           3, 3);
+
+    task2(&m);
+
+    for (int i = 0; i < m.nRows; ++i)
+        for (int j = 0; j < m.nCols; ++j)
+            assert(m.values[i][j] == exp_res.values[i][j]);
+}
+
+void test() {
     test_task1();
+    test_task2();
+
+}
+
+int main() {
+    test();
 
     return 0;
 }
