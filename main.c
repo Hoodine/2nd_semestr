@@ -182,12 +182,37 @@ void test_task5() {
     freeMemMatrix(&exp_res);
 }
 
+bool isMutuallyInverseMatrices(matrix m1, matrix m2) {
+    if (m1.nCols != m2.nCols || m1.nRows != m2.nRows)
+        return false;
+    else {
+        matrix mul_m = mulMatrices(m1, m2);
+        return isEMatrix(&mul_m);
+    }
+}
+
+bool task6(matrix m1, matrix m2) {
+    return isMutuallyInverseMatrices(m1, m2);
+}
+
+void test_task6() {
+    matrix m = createMatrixFromArray((int[]) {1, 2,
+                                              2, 3},
+                                     2, 2);
+    matrix exp_res = createMatrixFromArray((int[]) {-3, 2,
+                                                    2, -1},
+                                           2, 2);
+
+    assert(task6(m, exp_res));
+}
+
 void test() {
     test_task1();
     test_task2();
     test_task3();
     test_task4();
     test_task5();
+    test_task6();
 }
 
 int main() {
