@@ -91,6 +91,6 @@ matrix *createArrayOfMatrixFromArray(const int *values,
                                      int nMatrices, int nRows, int nCols);
 
 // Возвращает сумму элементов одномерного массива
-int getSum(int *a, int n);
+long long getSum(int *a, int n);
 
 #endif

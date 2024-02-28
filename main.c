@@ -141,11 +141,53 @@ void test_task4() {
     freeMemMatrix(&exp_res);
 }
 
+bool isUnique(long long *a, int n) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = n - 1; j > 0; j--) {
+            if (a[i] == a[j] && i != j)
+                return false;
+        }
+    }
+    return true;
+}
+
+void transposeIfMatrixHasNotEqualSumOfRows(matrix *m) {
+    long long temp[m->nRows];
+    for (int i = 0; i < m->nRows; ++i)
+        temp[i] = getSum(m->values[i], m->nCols);
+
+    assert(isUnique(temp, m->nRows));
+
+    transposeMatrix(m);
+}
+
+void task5(matrix *m) {
+    transposeIfMatrixHasNotEqualSumOfRows(m);
+}
+
+void test_task5() {
+    matrix m = createMatrixFromArray((int[]) {45, 55, 11,
+                                              67, 95, 96,
+                                              121, 51, 7},
+                                     3, 3);
+    matrix exp_res = createMatrixFromArray((int[]) {45, 67, 121,
+                                                    55, 95, 51,
+                                                    11, 96, 7},
+                                           3, 3);
+
+    task5(&m);
+
+    assert(areTwoMatricesEqual(&m, &exp_res));
+    freeMemMatrix(&m);
+    freeMemMatrix(&exp_res);
+}
+
 void test() {
     test_task1();
     test_task2();
     test_task3();
     test_task4();
+    test_task5();
 }
 
 int main() {
