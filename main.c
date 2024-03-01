@@ -412,15 +412,16 @@ int task10(matrix m) {
 }
 
 void test_task10() {
-    matrix m = createMatrixFromArray((int[]) { 7, 1,
-                                               2, 7,
-                                               5, 4,
-                                                4, 3,
-                                                1, 6,
-                                                8, 0
-                                                },6, 2);
+    matrix m = createMatrixFromArray((int[]) {7, 1,
+                                              2, 7,
+                                              5, 4,
+                                              4, 3,
+                                              1, 6,
+                                              8, 0
+    }, 6, 2);
 
     assert(task10(m) == 3);
+    freeMemMatrix(&m);
 }
 
 int getNSpecialElement(matrix m) {
@@ -431,7 +432,7 @@ int getNSpecialElement(matrix m) {
         sum = max;
         for (int j = 1; j < m.nRows; ++j) {
             max = max > m.values[j][i] ?
-                    max : m.values[j][i];
+                  max : m.values[j][i];
             sum += m.values[j][i];
         }
 
@@ -448,11 +449,42 @@ int task11(matrix m) {
 
 void test_task11() {
     matrix m = createMatrixFromArray((int[]) {3, 5, 5, 4,
-                                                 2, 3, 6, 7,
-                                                 12, 2, 1, 2},
-                                        3, 4);
+                                              2, 3, 6, 7,
+                                              12, 2, 1, 2},
+                                     3, 4);
 
     assert(task11(m) == 2);
+    freeMemMatrix(&m);
+}
+
+position getLeftMin(matrix m) {
+    return getMinValuePos(m);
+}
+
+void swapPenultimateRow(matrix *m, int n) {
+    for (int i = m->nRows - 1; i >= 0; i--)
+        m->values[m->nRows - 2][i] = m->values[i][n];
+}
+
+void task12(matrix m) {
+    swapPenultimateRow(&m, getLeftMin(m).colIndex);
+}
+
+void test_task12() {
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                              4, 5, 6,
+                                              7, 8, 1},
+                                     3, 3);
+    matrix exp_res = createMatrixFromArray((int[]) {1, 2, 3,
+                                                    1, 4, 7,
+                                                    7, 8, 1},
+                                           3, 3);
+
+    task12(m);
+
+    assert(areTwoMatricesEqual(&m, &exp_res));
+    freeMemMatrix(&m);
+    freeMemMatrix(&exp_res);
 }
 
 void test() {
@@ -467,6 +499,7 @@ void test() {
     test_task9();
     test_task10();
     test_task11();
+    test_task12();
 }
 
 int main() {
