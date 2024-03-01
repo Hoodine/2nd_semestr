@@ -258,6 +258,51 @@ void test_task7() {
     freeMemMatrix(&m);
 }
 
+int getMinInArea(matrix m) {
+    position max_pos = getMaxValuePos(m);
+    int min = m.values[max_pos.rowIndex][max_pos.colIndex];
+
+    int row = max_pos.rowIndex - 1;
+    int start_col = max_pos.colIndex - 1 >= 0 ?
+                    max_pos.colIndex - 1 : 0;
+    int col = start_col;
+    int col_end = max_pos.colIndex + 1 <= m.nCols - 1 ?
+                  max_pos.colIndex + 1 : m.nCols - 1;
+
+    for (int i = row; i >= 0; --i) {
+        for (int j = col; j <= col_end; ++j)
+            min = min < m.values[i][j] ? min : m.values[i][j];
+
+        start_col = start_col - 1 >= 0 ?
+                    start_col - 1 : 0;
+        col = start_col;
+        col_end = col_end + 1 <= m.nCols - 1 ?
+                  col_end + 1 : m.nCols - 1;
+    }
+
+    return min;
+}
+
+int task8(matrix m) {
+    return getMinInArea(m);
+}
+
+void test_task8() {
+    matrix test = createMatrixFromArray((int[]) {10, 7, 5, 6,
+                                                 3, 11, 8, 9,
+                                                 4, 1, 12, 2},
+                                        3, 4);
+    assert(task8(test) == 5);
+    freeMemMatrix(&test);
+
+    test = createMatrixFromArray((int[]) {6, 8, 9, 2,
+                                          7, 12, 3, 4,
+                                          10, 11, 5, 1},
+                                 3, 4);
+    assert(task8(test) == 6);
+    freeMemMatrix(&test);
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -266,6 +311,7 @@ void test() {
     test_task5();
     test_task6();
     test_task7();
+    test_task8();
 }
 
 int main() {
