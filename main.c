@@ -423,6 +423,38 @@ void test_task10() {
     assert(task10(m) == 3);
 }
 
+int getNSpecialElement(matrix m) {
+    int max, sum;
+    int count = 0;
+    for (int i = 0; i < m.nCols; ++i) {
+        max = m.values[0][i];
+        sum = max;
+        for (int j = 1; j < m.nRows; ++j) {
+            max = max > m.values[j][i] ?
+                    max : m.values[j][i];
+            sum += m.values[j][i];
+        }
+
+        sum -= max;
+        count = sum < max ? count + 1 : count;
+    }
+
+    return count;
+}
+
+int task11(matrix m) {
+    return getNSpecialElement(m);
+}
+
+void test_task11() {
+    matrix m = createMatrixFromArray((int[]) {3, 5, 5, 4,
+                                                 2, 3, 6, 7,
+                                                 12, 2, 1, 2},
+                                        3, 4);
+
+    assert(task11(m) == 2);
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -434,6 +466,7 @@ void test() {
     test_task8();
     test_task9();
     test_task10();
+    test_task11();
 }
 
 int main() {
