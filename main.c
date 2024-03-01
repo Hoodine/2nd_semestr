@@ -2,6 +2,7 @@
 #include "assert.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 void task1(matrix *m) {
     int max, min;
@@ -303,6 +304,70 @@ void test_task8() {
     freeMemMatrix(&test);
 }
 
+float getDistance(int *a, int n) {
+    float distance = 0;
+    for (int i = 0; i < n; ++i)
+        distance += a[i] * a[i];
+
+    distance = sqrtf(distance);
+
+    return distance;
+}
+
+void insertionSortRowsMatrixByRowCriteriaF(matrix *m, float (*criteria)(int *, int)) {
+    float temp[m->nRows];
+    float temp_pepe;
+    for (int i = 0; i < m->nRows; ++i) {
+        float res = criteria(m->values[i], m->nCols);
+        temp[i] = res;
+    }
+
+    int min_idx;
+    for (int j = 0; j < m->nRows; ++j) {
+        min_idx = j;
+        for (int i = j + 1; i < m->nRows; ++i) {
+            if (temp[i] < temp[min_idx]) {
+                min_idx = i;
+            }
+        }
+
+        if (min_idx != j) {
+            temp_pepe = temp[j];
+            temp[j] = temp[min_idx];
+            temp[min_idx] = temp_pepe;
+
+            swapRows(m, j, min_idx);
+        }
+    }
+}
+
+void sortByDistances(matrix *m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+void task9(matrix *m) {
+    sortByDistances(m);
+}
+
+void test_task9() {
+    int n = 4;
+    int m = 4;
+    matrix mat = createMatrixFromArray((int[]) {67, 4, 2, 6,
+                                                1, 9, 9, 6,
+                                                9, 9, 9, 9,
+                                                84, 1, -39, 1
+                                                }, m, n);
+    matrix exp_res = createMatrixFromArray((int[]) {1, 9, 9, 6,
+                                                    9, 9, 9, 9,
+                                                    67, 4, 2, 6,
+                                                    84, 1, -39, 1
+                                                }, m, n);
+
+    task9(&mat);
+
+    assert(areTwoMatricesEqual(&mat, &exp_res));
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -312,6 +377,8 @@ void test() {
     test_task6();
     test_task7();
     test_task8();
+    test_task9();
+
 }
 
 int main() {
