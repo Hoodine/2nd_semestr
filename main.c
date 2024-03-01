@@ -517,10 +517,10 @@ int task13(matrix *ms, int nMatrix) {
 }
 
 void test_task13() {
-    matrix *ms = createArrayOfMatrixFromArray((int[]) { 7, 1, 1, 1,
-                                                        1, 6, 2, 2,
-                                                        5, 4, 2, 3,
-                                                        1, 3, 7, 9},
+    matrix *ms = createArrayOfMatrixFromArray((int[]) {7, 1, 1, 1,
+                                                       1, 6, 2, 2,
+                                                       5, 4, 2, 3,
+                                                       1, 3, 7, 9},
                                               4, 2, 2);
 
     assert(task13(ms, 4) == 2);
@@ -559,24 +559,59 @@ void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
             outputMatrix(ms[i]);
 }
 
-void task14(matrix *ms, int nMatrix, int *a){
+void task14(matrix *ms, int nMatrix, int *a) {
     for (int i = 0; i < nMatrix; ++i)
         a[i] = countZeroRows(ms[i]);
 }
 
 void test_task14() {
     matrix *ms = createArrayOfMatrixFromArray((int[]) {0, 1, 1, 0, 0, 0,
-                                                        1, 1, 2, 1, 1, 1,
-                                                        0, 0, 0, 0, 4, 7,
-                                                        0, 0, 0, 1, 0, 0,
-                                                        0, 1, 0, 2, 0, 3},
+                                                       1, 1, 2, 1, 1, 1,
+                                                       0, 0, 0, 0, 4, 7,
+                                                       0, 0, 0, 1, 0, 0,
+                                                       0, 1, 0, 2, 0, 3},
                                               5, 3, 2);
     int res[5];
     task14(ms, 5, res);
     assert(res[0] == 1 && res[1] == 0 &&
-        res[2] == 2 && res[3] == 2 && res[4] == 0);
+           res[2] == 2 && res[3] == 2 && res[4] == 0);
 
     printMatrixWithMaxZeroRows(ms, 5);
+}
+
+void task15(matrix *ms, int nMatrix) {
+    int temp_pepe[nMatrix];
+    int abs, max = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        for (int j = 0; j < ms->nRows; ++j)
+            for (int k = 0; k < ms->nCols; ++k) {
+                abs = ms[i].values[j][k] > 0 ? ms[i].values[j][k] :
+                        -1 * ms[i].values[j][k];
+                max = max > abs ? max : abs;
+            }
+
+        temp_pepe[i] = max;
+        max = 0;
+    }
+
+    int min = temp_pepe[0];
+    for (int i = 1; i < nMatrix; ++i)
+        min = min < temp_pepe[i] ? min : temp_pepe[i];
+
+    for (int i = 0; i < nMatrix; ++i)
+        if (temp_pepe[i] == min)
+            outputMatrix(ms[i]);
+}
+
+void test_task15() {
+    matrix *ms = createArrayOfMatrixFromArray((int[]) {90, -1, 1, 11,
+                                                       11, 66, -92, 22,
+                                                       5, 40, -22, 32,
+                                                       1, 3, 7, 90},
+                                              4, 2, 2);
+
+    task15(ms, 4);
+    assert(69 == 69);
 }
 
 void test() {
@@ -594,6 +629,7 @@ void test() {
     test_task12();
     test_task13();
     test_task14();
+    test_task15();
 }
 
 int main() {
