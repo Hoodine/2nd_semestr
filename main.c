@@ -586,7 +586,7 @@ void task15(matrix *ms, int nMatrix) {
         for (int j = 0; j < ms->nRows; ++j)
             for (int k = 0; k < ms->nCols; ++k) {
                 abs = ms[i].values[j][k] > 0 ? ms[i].values[j][k] :
-                        -1 * ms[i].values[j][k];
+                      -1 * ms[i].values[j][k];
                 max = max > abs ? max : abs;
             }
 
@@ -665,6 +665,59 @@ void test_task16() {
                                      3, 5);
 
     assert(task16(m) == 4);
+    freeMemMatrix(&m);
+}
+
+long long getScalarProduct(int *a, int *b, int n) {
+    long long res = 0;
+    for (int i = 0; i < n; ++i)
+        res += a[i] * b[i];
+
+    return res;
+}
+
+double getVectorLength(int *a, int n) {
+    double res = 0;
+    for (int i = 0; i < n; ++i)
+        res += sqrt(a[i] * a[i]);
+
+    return res;
+}
+
+double getCosine(int *a, int *b, int n) {
+    long long sclr_prod = getScalarProduct(a, b, n);
+    double len_a_b = getVectorLength(a, n) * getVectorLength(b, n);
+
+    assert(len_a_b != 0);
+
+    return (double) sclr_prod / len_a_b;
+}
+
+int getVectorIndexWithMaxAngle(matrix m, int *b) {
+    double temp_pepe[m.nRows];
+    for (int i = 0; i < m.nRows; ++i)
+        temp_pepe[i] = getCosine(m.values[i], b, m.nCols);
+
+    int res = 0;
+    for (int i = 1; i < m.nRows; ++i)
+        res = temp_pepe[res] > temp_pepe[i] ? res : i;
+
+    return res;
+}
+
+int task17(matrix m, int *b) {
+    return getVectorIndexWithMaxAngle(m, b);
+}
+
+void test_task17() {
+    matrix m = createMatrixFromArray((int[]) {3, 654,
+                                              4, 4,
+                                              3, 1},
+                                     3, 2);
+    int vector_b[2] = {3, 4};
+
+    assert(task17(m, vector_b) == 0);
+    freeMemMatrix(&m);
 }
 
 void test() {
@@ -684,6 +737,7 @@ void test() {
     test_task14();
     test_task15();
     test_task16();
+    test_task17();
 }
 
 int main() {
