@@ -614,6 +614,59 @@ void test_task15() {
     assert(69 == 69);
 }
 
+int min2(int a, int b) {
+    return a > b ? b : a;
+}
+
+int getNSpecialElement2(matrix m) {
+    int count = 0;
+    bool isSequence = true;
+    int left_idx, right_idx;
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+            left_idx = j != 0 ? j - 1 : 0;
+            right_idx = j != m.nCols - 1 ? j + 1 : m.nCols - 1;
+
+            while (left_idx != 0 || right_idx != m.nCols - 1) {
+
+                if (j != left_idx &&
+                    min2(m.values[i][left_idx], m.values[i][j]) ==
+                    m.values[i][left_idx]) {
+                    isSequence = false;
+                    break;
+                }
+
+                if (j != right_idx &&
+                    min2(m.values[i][left_idx], m.values[i][j]) ==
+                    m.values[i][j]) {
+                    isSequence = false;
+                    break;
+                }
+
+                left_idx = j != 0 ? j - 1 : 0;
+                right_idx = j != m.nCols - 1 ? j + 1 : m.nCols - 1;
+            }
+            if (isSequence)
+                count++;
+        }
+    }
+
+    return count;
+}
+
+int task16(matrix m) {
+    return getNSpecialElement(m);
+}
+
+void test_task16() {
+    matrix m = createMatrixFromArray((int[]) {2, 3, 5, 5, 4,
+                                              6, 2, 3, 8, 12,
+                                              12, 12, 2, 1, 2},
+                                     3, 5);
+
+    assert(task16(m) == 4);
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -630,6 +683,7 @@ void test() {
     test_task13();
     test_task14();
     test_task15();
+    test_task16();
 }
 
 int main() {
