@@ -720,6 +720,36 @@ void test_task17() {
     freeMemMatrix(&m);
 }
 
+long long getScalarProductRowAndCol(matrix m, int i, int j) {
+    int column_arr[m.nRows];
+    for (int k = 0; k < m.nRows; ++k)
+        column_arr[k] = m.values[k][j];
+
+    return getScalarProduct(m.values[i], column_arr, m.nRows);
+}
+
+long long getSpecialScalarProduct(matrix m) {
+    int min_col_idx = getMinValuePos(m).colIndex;
+    int max_row_idx = getMaxValuePos(m).rowIndex;
+
+    return getScalarProductRowAndCol(m, max_row_idx, min_col_idx);
+}
+
+
+long long task18(matrix m) {
+    return getSpecialScalarProduct(m);
+}
+
+void test_task18() {
+    matrix m = createMatrixFromArray((int[]) {3, 6, 5,
+                                              4, 4, 5,
+                                              3, 1, 5},
+                                     3, 3);
+
+    assert(task18(m) == 47);
+    freeMemMatrix(&m);
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -738,6 +768,7 @@ void test() {
     test_task15();
     test_task16();
     test_task17();
+    test_task18();
 }
 
 int main() {
