@@ -1,4 +1,5 @@
 C:/Users/Egor Saulenko/CLionProjects/2nd_semestr/cmake-build-debug/CMakeFiles/2ndsemestr.dir
+C:/Users/Egor Saulenko/CLionProjects/2nd_semestr/cmake-build-debug/CMakeFiles/str.dir
 C:/Users/Egor Saulenko/CLionProjects/2nd_semestr/cmake-build-debug/CMakeFiles/edit_cache.dir
 C:/Users/Egor Saulenko/CLionProjects/2nd_semestr/cmake-build-debug/CMakeFiles/rebuild_cache.dir
 C:/Users/Egor Saulenko/CLionProjects/2nd_semestr/cmake-build-debug/libs/CMakeFiles/edit_cache.dir

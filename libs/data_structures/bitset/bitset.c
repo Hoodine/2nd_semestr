@@ -26,6 +26,10 @@ bool bitset_isSubset(bitset subset, bitset set) {
     return ((subset.values & set.values) == set.values) && (set.values != subset.values);
 }
 
+bool bitset_isSubsetStrong(bitset subset, bitset set) {
+    return (!bitset_isSubset(subset, set));
+}
+
 void bitset_insert(bitset *set, unsigned int value) {
     set->values = set->values | (1 << value);
 }

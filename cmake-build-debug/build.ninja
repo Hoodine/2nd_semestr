@@ -47,7 +47,7 @@ cmake_ninja_workdir = C$:/Users/Egor$ Saulenko/CLionProjects/2nd_semestr/cmake-b
 #############################################
 # Order-only phony target for 2ndsemestr
 
-build cmake_object_order_depends_target_2ndsemestr: phony || cmake_object_order_depends_target_algorithms cmake_object_order_depends_target_data_structures
+build cmake_object_order_depends_target_2ndsemestr: phony || cmake_object_order_depends_target_algorithms cmake_object_order_depends_target_data_structures cmake_object_order_depends_target_str
 
 build CMakeFiles/2ndsemestr.dir/main.c.obj: C_COMPILER__2ndsemestr_unscanned_Debug C$:/Users/Egor$ Saulenko/CLionProjects/2nd_semestr/main.c || cmake_object_order_depends_target_2ndsemestr
   DEP_FILE = CMakeFiles\2ndsemestr.dir\main.c.obj.d
@@ -81,15 +81,46 @@ build CMakeFiles/2ndsemestr.dir/libs/data_structures/bitset/bitset.c.obj: C_COMP
 #############################################
 # Link the executable 2ndsemestr.exe
 
-build 2ndsemestr.exe: C_EXECUTABLE_LINKER__2ndsemestr_Debug CMakeFiles/2ndsemestr.dir/main.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/array/array.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/algorithm.c.obj CMakeFiles/2ndsemestr.dir/libs/data_structures/bitset/bitset.c.obj | libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a libs/algorithms/libalgorithms.a || libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a
+build 2ndsemestr.exe: C_EXECUTABLE_LINKER__2ndsemestr_Debug CMakeFiles/2ndsemestr.dir/main.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/array/array.c.obj CMakeFiles/2ndsemestr.dir/libs/algorithms/algorithm.c.obj CMakeFiles/2ndsemestr.dir/libs/data_structures/bitset/bitset.c.obj | libstr.a libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a libs/algorithms/libalgorithms.a || libs/algorithms/libalgorithms.a libs/data_structures/libdata_structures.a libstr.a
   FLAGS = -g
-  LINK_LIBRARIES = libs/algorithms/libalgorithms.a  libs/data_structures/libdata_structures.a  libs/algorithms/libalgorithms.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = libstr.a  libs/algorithms/libalgorithms.a  libs/data_structures/libdata_structures.a  libs/algorithms/libalgorithms.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\2ndsemestr.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
   TARGET_FILE = 2ndsemestr.exe
   TARGET_IMPLIB = lib2ndsemestr.dll.a
   TARGET_PDB = 2ndsemestr.exe.dbg
+
+# =============================================================================
+# Object build statements for STATIC_LIBRARY target str
+
+
+#############################################
+# Order-only phony target for str
+
+build cmake_object_order_depends_target_str: phony || CMakeFiles/str.dir
+
+build CMakeFiles/str.dir/string/string_.c.obj: C_COMPILER__str_unscanned_Debug C$:/Users/Egor$ Saulenko/CLionProjects/2nd_semestr/string/string_.c || cmake_object_order_depends_target_str
+  DEP_FILE = CMakeFiles\str.dir\string\string_.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\str.dir
+  OBJECT_FILE_DIR = CMakeFiles\str.dir\string
+
+
+# =============================================================================
+# Link build statements for STATIC_LIBRARY target str
+
+
+#############################################
+# Link the static library libstr.a
+
+build libstr.a: C_STATIC_LIBRARY_LINKER__str_Debug CMakeFiles/str.dir/string/string_.c.obj
+  LANGUAGE_COMPILE_FLAGS = -g
+  OBJECT_DIR = CMakeFiles\str.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_FILE = libstr.a
+  TARGET_PDB = str.a.dbg
 
 
 #############################################
@@ -309,6 +340,8 @@ build libalgorithms.a: phony libs/algorithms/libalgorithms.a
 
 build libdata_structures.a: phony libs/data_structures/libdata_structures.a
 
+build str: phony libstr.a
+
 # =============================================================================
 # Folder targets.
 
@@ -317,7 +350,7 @@ build libdata_structures.a: phony libs/data_structures/libdata_structures.a
 #############################################
 # Folder: C:/Users/Egor Saulenko/CLionProjects/2nd_semestr/cmake-build-debug
 
-build all: phony 2ndsemestr.exe libs/all
+build all: phony 2ndsemestr.exe libstr.a libs/all
 
 # =============================================================================
 
