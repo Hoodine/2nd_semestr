@@ -1,6 +1,8 @@
 #include "string/string_.h"
 #include <stdio.h>
 #include <assert.h>
+#include <ctype.h>
+#include <string.h>
 
 void test_strlen_() {
     char *str = "1234567890";
@@ -69,6 +71,35 @@ void test_findSpaceReverse(){
     assert(findSpaceReverse(&str3[2], &str3[0]) == &str3[2]);
 }
 
+void test_copy() {
+    char *str = "a2b45678c";
+    char *str_copied[9];
+
+    copy(&str[0], &str[10], str_copied);
+
+    assert(!strcmp(str, (char *)str_copied));
+}
+
+void test_copyIf(){
+    char *str = "a2b45678c";
+    char *str_copied[4];
+    char *test = "abc";
+
+    copyIf(&str[0], &str[10], (char *) str_copied, isalpha);
+
+    assert(!strcmp(test, (char *) str_copied));
+}
+
+void test_copyIfReverse(){
+    char *str = "a2b45678c";
+    char *str_copied[3];
+    char *test = "cba";
+
+    copyIfReverse(&str[10], &str[-1], (char *) str_copied, isalpha);
+
+    assert(!strcmp(test, (char *)str_copied));
+}
+
 void test() {
     test_strlen_();
     test_find();
@@ -76,6 +107,9 @@ void test() {
     test_findSpace();
     test_findNonSpaceReverse();
     test_findSpaceReverse();
+    test_copy();
+    test_copyIf();
+    test_copyIfReverse();
 
     printf("\nAll is Good (pepe)\n");
 }
