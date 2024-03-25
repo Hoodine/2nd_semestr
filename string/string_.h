@@ -46,4 +46,11 @@ char* copyIf(char *beginSource, const char *endSource,
 char* copyIfReverse(char *rbeginSource, const char *rendSource,
                     char *beginDestination, int (*f)(int));
 
+// Сокращает количество пробелов между словами данного предложения до одного
+void removeExtraSpaces(char *s);
+
+void assertString(const char *expected, char *got,
+                  char const *fileName, char const *funcName,
+                  int line);
+
 #endif
