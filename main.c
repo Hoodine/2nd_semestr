@@ -116,10 +116,41 @@ void test_digitsToStart() {
     test_digitsToStart3();
 }
 
+void test_replaceDigitsToNumOfSpaces1() {
+    char str[MAX_STRING_SIZE] = "1bo58ob9a";
+    char exp[] = " bo             ob         a";
+    replaceDigitsToNumOfSpaces(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replaceDigitsToNumOfSpaces2() {
+    char str[MAX_STRING_SIZE] = "p0s5ka2 k1l";
+    char exp[] = "ps     ka   k l";
+    replaceDigitsToNumOfSpaces(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replaceDigitsToNumOfSpaces3() {
+    char str[MAX_STRING_SIZE] = "";
+    char exp[] = "";
+    replaceDigitsToNumOfSpaces(str);
+
+    ASSERT_STRING(exp, str);
+}
+
+void test_replaceDigitsToNumOfSpaces() {
+    test_replaceDigitsToNumOfSpaces1();
+    test_replaceDigitsToNumOfSpaces2();
+    test_replaceDigitsToNumOfSpaces3();
+}
+
 void test() {
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
     test_digitsToStart();
+    test_replaceDigitsToNumOfSpaces();
 }
 
 int main() {

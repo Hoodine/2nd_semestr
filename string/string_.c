@@ -3,8 +3,48 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include "string_.h"
+#include <stdlib.h>
+#include <assert.h>
 
-char _stringBuffer[MAX_STRING_SIZE + 1];
+char _stringBuffer[MAX_STRING_SIZE + 1]; // стринг баффер как ты меня заебал cyka
+
+int randint(int n) {
+    if ((n - 1) == RAND_MAX) {
+        return rand();
+    } else {
+
+        assert (n <= RAND_MAX);
+
+        int end = RAND_MAX / n; 
+        assert (end > 0);
+        end *= n;
+
+        int r;
+        while ((r = rand()) >= end);
+
+        return r % n;
+    }
+}
+
+char *vopros() {
+    int otvet = randint(5);
+    switch (otvet) {
+        case 1:
+            return "Boomer";
+            break;
+        case 2:
+            return "Zoomer";
+            break;
+        case 3:
+            return "Millenial";
+            break;
+        case 4:
+            return "Alpha";
+            break;
+        default:
+            return "Doomer";
+    }
+}
 
 size_t strlen_(const char *begin) {
     char *end = begin;
@@ -111,7 +151,7 @@ void assertString(const char *expected, char *got,
         fprintf(stderr, "Expected: \"%s\"\n", expected);
         fprintf(stderr, "Got: \"%s\"\n\n", got);
     } else
-        fprintf(stderr, "%s - OK\n", funcName);
+        fprintf(stderr, "%s - OK %s\n", funcName, vopros());
 }
 
 void removeExtraSpaces(char *s) {
@@ -182,3 +222,64 @@ void digitsToStart(char *s) {
         beginSearch = word.end;
     }
 }
+
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
+    word->end = findNonSpaceReverse(rbegin, rend);
+    if (*word->begin == *rend)
+        return 0;
+
+    word->begin = findSpaceReverse(word->end, rend);
+    word->begin++;
+
+    return 1;
+}
+
+void replaceDigitsToNumOfSpaces(char *s) {
+    _stringBuffer[0] = '\0';
+    copy(s, getEndOfString(s),_stringBuffer);
+    char *readPtr = _stringBuffer;
+    char *recPtr = s;
+
+    while (*readPtr != '\0') {
+        if (strlen_(s) >= MAX_STRING_SIZE) {
+            fprintf(stderr, "Out of MAX_STRING_SIZE");
+            exit(1);
+        }
+
+        if (!isdigit(*readPtr)) {
+            *recPtr = *readPtr;
+            readPtr++;
+            recPtr++;
+        } else {
+            int counter = *readPtr - 48;
+            readPtr++;
+            for (int j = counter; j > 0; --j) {
+                *recPtr = ' ';
+                recPtr++;
+            }
+        }
+    }
+
+    *recPtr = '\0';
+    *readPtr = '\0';
+}
+
+void replace(char *source, char *w1, char *w2) {
+    size_t w1Size = strlen_(w1);
+    size_t w2Size = strlen_(w2);
+    WordDescriptor word1 = {w1, w1 + w1Size};
+    WordDescriptor word2 = {w2, w2 + w2Size};
+    char *readPtr, *recPtr;
+
+    if (w1Size >= w2Size) {
+        readPtr = source;
+        recPtr = source;
+    } else {
+        copy(source, getEndOfString(source), _stringBuffer);
+        readPtr = _stringBuffer;
+        recPtr = source;
+    }
+
+
+}
+

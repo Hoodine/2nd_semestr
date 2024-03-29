@@ -100,4 +100,12 @@ void digitToStart(WordDescriptor word);
 // буквы перенесены в конец слова
 void digitsToStart(char *s);
 
+// Возвращает значение 0, если слово не было считано, в противном
+// случае будет возвращено значение 1 и в переменную word типа WordDescriptor
+// будут записаны позиции начала слова, и первого символа конца слова
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
+
+// Преобразовывает строку, заменяя каждую цифру соответствующим ей числом пробелов
+void replaceDigitsToNumOfSpaces(char *s);
+
 #endif
