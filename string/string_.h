@@ -108,4 +108,7 @@ int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 // Преобразовывает строку, заменяя каждую цифру соответствующим ей числом пробелов
 void replaceDigitsToNumOfSpaces(char *s);
 
+// Заменяет все вхождения слова w1 на слово w2
+void replace(char *source, char *w1, char *w2);
+
 #endif

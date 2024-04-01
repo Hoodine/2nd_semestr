@@ -15,7 +15,7 @@ int randint(int n) {
 
         assert (n <= RAND_MAX);
 
-        int end = RAND_MAX / n; 
+        int end = RAND_MAX / n;
         assert (end > 0);
         end *= n;
 
@@ -236,7 +236,7 @@ int getWordReverse(char *rbegin, char *rend, WordDescriptor *word) {
 
 void replaceDigitsToNumOfSpaces(char *s) {
     _stringBuffer[0] = '\0';
-    copy(s, getEndOfString(s),_stringBuffer);
+    copy(s, getEndOfString(s), _stringBuffer);
     char *readPtr = _stringBuffer;
     char *recPtr = s;
 
@@ -280,6 +280,21 @@ void replace(char *source, char *w1, char *w2) {
         recPtr = source;
     }
 
+    while (*readPtr != '\0') {
+        if (memcmp(readPtr, w1, w1Size) == 0) {
+            for (int i = 0; i < w2Size; ++i) {
+                *recPtr = w2[i];
+                recPtr++;
+            }
 
+            readPtr += w1Size;
+
+        } else {
+            *recPtr = *readPtr;
+            readPtr++;
+            recPtr++;
+        }
+    }
+
+    *recPtr = '\0';
 }
-
