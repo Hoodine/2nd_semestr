@@ -56,6 +56,76 @@ size_t strlen_(const char *begin) {
     return end - begin;
 }
 
+char *strpbrk_(const char *str, const char *delim) {
+    const char *ptr = str;
+
+    while (*ptr != '\0') {
+        const char *d = delim;
+        while (*d != '\0') {
+            if (*ptr == *d) {
+                return (char *) ptr;
+            }
+            d++;
+        }
+        ptr++;
+    }
+
+    return NULL;
+}
+
+char *strtok_(char *str, const char *delim) {
+    static char *savedToken = NULL;
+
+    if (str != NULL) {
+        savedToken = str;
+    }
+
+    if (savedToken == NULL) {
+        return NULL;
+    }
+
+    char *tokenStart = savedToken;
+    char *tokenEnd = strpbrk_(savedToken, delim);
+
+    if (tokenEnd != NULL) {
+        *tokenEnd = '\0';
+        savedToken = tokenEnd + 1;
+    } else {
+        savedToken = NULL;
+    }
+
+    return tokenStart;
+}
+
+char *strcat_(char *dest, const char *src) {
+    char *ptr = dest;
+
+    while (*ptr != '\0') {
+        ptr++;
+    }
+
+    while (*src != '\0') {
+        *ptr = *src;
+        ptr++;
+        src++;
+    }
+
+    *ptr = '\0';
+
+    return dest;
+}
+
+void strcpy_(char *dest, const char *src) {
+    while (*src) {
+        *dest = *src;
+        dest++;
+        src++;
+    }
+
+    *dest = '\0';
+}
+
+
 char *find(char *begin, char *end, int ch) {
     while (begin != end && *begin != ch)
         begin++;
@@ -400,4 +470,71 @@ size_t howManyWordsPalindromes(char *s) {
     }
 
     return countPalindromes;
+}
+
+void mergeStrings(char *s1, char *s2, char *result) {
+    char *word1 = strtok_(s1, " ");
+    char *word2 = strtok_(s2, " ");
+
+    while (word1 != NULL || word2 != NULL) {
+        if (word1 != NULL) {
+            strcat_(result, word1);
+            strcat_(result, " ");
+            word1 = strtok_(NULL, " ");
+        }
+        if (word2 != NULL) {
+            strcat_(result, word2);
+            strcat_(result, " ");
+            word2 = strtok_(NULL, " ");
+        }
+    }
+}
+
+void reverseWords(char *str) {
+    int i = 0;
+    _bag.size = 0;
+    WordDescriptor word;
+
+    while (*str && _bag.size < 1) {
+        if (*str != ' ' && *(str + 1) == ' ' || *(str + 1) == '\0') {
+            word.begin = str - i;
+            word.end = str + 1;
+            _bag.words[_bag.size] = word;
+            _bag.size++;
+            i = -1;
+        }
+
+        str++;
+        i++;
+    }
+
+    while (*str) {
+        if (*str != ' ' && *(str + 1) == ' ' || *(str + 1) == '\0') {
+            word.begin = str - i + 1;
+            word.end = str + 1;
+            _bag.words[_bag.size] = word;
+            _bag.size++;
+            i = -1;
+        }
+        str++;
+        i++;
+    }
+
+    char *reversedStr = malloc(strlen_(str) + 1);
+    char *p = reversedStr;
+
+    for (int j = _bag.size - 1; j >= 0; j--) {
+        for (char *p = _bag.words[j].begin; p < _bag.words[j].end; p++) {
+            *reversedStr = *p;
+            reversedStr++;
+        }
+        *reversedStr = ' ';
+        reversedStr++;
+    }
+
+    *reversedStr = '\0';
+
+    strcpy_(str, p);
+
+    free(p);
 }

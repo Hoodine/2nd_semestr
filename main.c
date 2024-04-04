@@ -280,6 +280,43 @@ void test_howManyWordsPalindromes() {
     test_howManyWordsPalindromes5();
 }
 
+void test_mergeString1() {
+    char s1[] = "Hello how are you";
+    char s2[] = "I am fine thank you";
+    char result[100] = "";
+
+    mergeStrings(s1, s2, result);
+
+    ASSERT_STRING("Hello I am fine thank you ", result);
+}
+
+void test_mergeString2() {
+    char s1[] = "Thank you my friend";
+    char s2[] = "Hello how are you";
+    char result[100] = "";
+
+    mergeStrings(s1, s2, result);
+
+    ASSERT_STRING("Thank Hello how are you ", result);
+}
+
+void test_mergeString() {
+    test_mergeString1();
+    test_mergeString2();
+}
+
+void test_reverseWords() {
+    char p[MAX_STRING_SIZE] = "Hello world! This is a test.";
+    reverseWords(p);
+
+    ASSERT_STRING(".test a is This !world Hello", p);
+
+    char c[MAX_STRING_SIZE] = ".test a is This !world Hello";
+    reverseWords(c);
+
+    ASSERT_STRING("Hello world! This is a test.", c);
+}
+
 
 void test() {
     test_removeExtraSpaces();
@@ -290,6 +327,8 @@ void test() {
     test_areWordsOrdered();
     test_reverseWordsBag();
     test_howManyWordsPalindromes();
+    test_mergeString();
+    test_reverseWords();
 }
 
 int main() {

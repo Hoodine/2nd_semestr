@@ -21,6 +21,15 @@ typedef struct BagOfWords {
 //возвращает длину строки
 size_t strlen_(const char *begin);
 
+// Функции обработки слова
+char* strpbrk_(const char* str, const char* delim);
+
+char* strtok_(char* str, const char* delim);
+
+char* strcat_(char* dest, const char* src);
+
+void strcpy_(char *dest, const char *src);
+
 //возвращает указатель
 //на первый элемент с кодом ch, расположенным на ленте памяти между
 //адресами begin и end не включая end.
@@ -140,5 +149,13 @@ bool isWordPalindrome(char *begin, char *end);
 
 // Подсчитывает количество палиндромов в строке, разделенной запятыми.
 size_t howManyWordsPalindromes(char *s);
+
+//объединяет две строки s1 и s2, разбивая их на слова
+//с помощью функции strtok_ и объединяя слова
+//в результирующую строку result
+void mergeStrings(char* s1, char* s2, char* result);
+
+//Преобразовывает строку, изменяя порядок следования слов в строке на обратный.
+void reverseWords(char *str);
 
 #endif
