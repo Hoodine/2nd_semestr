@@ -37,6 +37,10 @@ char* strcat_(char* dest, const char* src);
 
 void strcpy_(char *dest, const char *src);
 
+char* strncpy_(char *destination, const char *source, size_t num);
+
+int strncmp_(const char *s1, const char *s2, size_t n);
+
 //возвращает указатель
 //на первый элемент с кодом ch, расположенным на ленте памяти между
 //адресами begin и end не включая end.
@@ -169,5 +173,13 @@ void reverseWords(char *str);
 void printWordBeforeFirstWordWithA(char *s);
 
 WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, WordDescriptor *w);
+
+void wordDescriptorToString(WordDescriptor word, char *destination);
+
+BagOfWords createBagOfWordsFromString(char *s);
+
+int isWordInBagOfWords(WordDescriptor word, BagOfWords bag);
+
+WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
 
 #endif
