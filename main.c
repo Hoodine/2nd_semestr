@@ -482,6 +482,33 @@ void test_append() {
     test_for_append3();
 }
 
+void test_for_checkWordInString1() {
+    char word[] = "Python";
+    char str[] = "Phonk tyrbo";
+
+    assert(checkWordInString(word, str) == true);
+}
+
+void test_for_checkWordInString2() {
+    char word[] = "junior";
+    char str[] = "bim bim bam bam";
+
+    assert(checkWordInString(word, str) == false);
+}
+
+void test_for_checkWordInString3() {
+    char word[] = "oguzok";
+    char str[] = "";
+
+    assert(checkWordInString(word, str) == false);
+}
+
+void test_checkWordInString() {
+    test_for_checkWordInString1();
+    test_for_checkWordInString2();
+    test_for_checkWordInString3();
+}
+
 void test() {
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
@@ -501,6 +528,7 @@ void test() {
     test_findWordBeforeFirstOccurrence();
     test_remove_palindromes();
     test_append();
+    test_checkWordInString();
 }
 
 int main() {

@@ -216,4 +216,7 @@ void removePalindromes(char *str);
 // словами строки, в которой содержится большее количество слов
 void append(char *s1, char *s2);
 
+// Функция для проверки вхождения букв из заданного слова в строку
+bool checkWordInString(const char *word, const char *str);
+
 #endif
