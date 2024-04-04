@@ -144,7 +144,7 @@ char *strncpy_(char *destination, const char *source, size_t num) {
 int strncmp_(const char *s1, const char *s2, size_t n) {
     while (n--) {
         if (*s1 != *s2) {
-            return (unsigned char)*s1 - (unsigned char)*s2;
+            return (unsigned char) *s1 - (unsigned char) *s2;
         }
         if (*s1 == '\0') {
             return 0;
@@ -154,6 +154,18 @@ int strncmp_(const char *s1, const char *s2, size_t n) {
     }
     return 0;
 }
+
+char *strrchr_(const char *str, int c) {
+    char *last = NULL;
+    while (*str != '\0') {
+        if (*str == c) {
+            last = (char *) str;
+        }
+        str++;
+    }
+    return last;
+}
+
 
 char *find(char *begin, char *end, int ch) {
     while (begin != end && *begin != ch)
@@ -683,11 +695,11 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
     return lastWord;
 }
 
-bool hasDuplicateWords(char* s) {
-    char* words[100];
+bool hasDuplicateWords(char *s) {
+    char *words[100];
     int wordCount = 0;
 
-    char* word = strtok_(s, " ");
+    char *word = strtok_(s, " ");
     while (word != NULL) {
         words[wordCount] = word;
         wordCount++;
@@ -750,4 +762,83 @@ int findPairWithSameLetters(BagOfWords *bag) {
     }
 
     return 0;
+}
+
+char *getWordsExceptLast(char *str) {
+    char *last_space = strrchr_(str, ' ');
+    if (last_space != NULL)
+        *last_space = '\0';
+
+    return str;
+}
+
+char *findWordBeforeFirstOccurrence(char *s1, char *s2) {
+    BagOfWords bag;
+    bag.size = 0;
+
+    char *delimiters = " ,.?!;:"; // пример разделителей
+    char *token = strtok_(s1, delimiters);
+    while (token != NULL) {
+        WordDescriptor word;
+        word.begin = token;
+        word.end = token + strlen_(token);
+        bag.words[bag.size++] = word;
+        token = strtok_(NULL, delimiters);
+    }
+
+    char *w = NULL;
+    token = strtok_(s2, delimiters);
+    while (token != NULL) {
+        for (size_t i = 0; i < bag.size; i++) {
+            if (strcmp(bag.words[i].begin, token) == 0) {
+                w = token;
+                break;
+            }
+        }
+        if (w != NULL) {
+            break;
+        }
+        token = strtok_(NULL, delimiters);
+    }
+
+    if (w == NULL) {
+        return "0";
+    }
+
+    for (size_t i = 0; i < bag.size; i++) {
+        if (strcmp(bag.words[i].begin, w) == 0) {
+            if (i > 0) {
+                return bag.words[i - 1].begin;
+            } else {
+                return "0";
+            }
+        }
+    }
+
+    return "0";
+}
+
+bool isPalindromeInString(char *s) {
+    size_t length = strlen_(s);
+    for (int i = 0; i < length / 2; i++)
+        if (tolower(s[i]) != tolower(s[length - i - 1]))
+            return false;
+
+    return true;
+}
+
+void removePalindromes(char *str) {
+    char *token = strtok_(str, " ");
+    char result[1000] = "";
+
+    while (token != NULL) {
+        if (!isPalindromeInString(token)) {
+            strcat_(result, token);
+            strcat_(result, " ");
+        }
+
+        token = strtok_(NULL, " ");
+    }
+
+    strcpy(str, result);
 }

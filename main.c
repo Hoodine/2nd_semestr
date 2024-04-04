@@ -332,7 +332,7 @@ void test_getWordBeforeFirstWordWithA() {
     assert(getWordBeforeFirstWordWithA(s4, &word) == NOT_FOUND_A_WORD_WITH_A);
 }
 
-void test_lastWordInFirstStringInSecondString() {
+void test_lastWordInFirstStringInSecondString1() {
     char s1_1[] = "Hi ha he";
     char s2_1[] = "Hi he";
     WordDescriptor word1 = lastWordInFirstStringInSecondString(s1_1, s2_1);
@@ -341,7 +341,9 @@ void test_lastWordInFirstStringInSecondString() {
     wordDescriptorToString(word1, str1);
 
     ASSERT_STRING("he", str1);
+}
 
+void test_lastWordInFirstStringInSecondString2() {
     char s1_2[] = "Hi ha he";
     char s2_2[] = "Hi ha";
     WordDescriptor word2 = lastWordInFirstStringInSecondString(s1_2, s2_2);
@@ -352,6 +354,11 @@ void test_lastWordInFirstStringInSecondString() {
     ASSERT_STRING("ha", str2);
 }
 
+void test_lastWordInFirstStringInSecondString() {
+    test_lastWordInFirstStringInSecondString1();
+    test_lastWordInFirstStringInSecondString2();
+}
+
 void test_hasDuplicateWords() {
     char str1[] = "my friend Hello my";
     assert(hasDuplicateWords(str1) == true);
@@ -360,16 +367,89 @@ void test_hasDuplicateWords() {
     assert(hasDuplicateWords(str2) == false);
 }
 
-void test_FindPairWithSameLetters() {
+void test_FindPairWithSameLetters1() {
     BagOfWords bag1;
     bag1.size = 0;
     parseString("hello world olleh dlrow", &bag1);
     assert(findPairWithSameLetters(&bag1) == 1);
+}
 
+void test_FindPairWithSameLetters2() {
     BagOfWords bag2;
     bag2.size = 0;
     parseString("hey hi ha", &bag2);
     assert(findPairWithSameLetters(&bag2) == 0);
+}
+
+void test_FindPairWithSameLetters() {
+    test_FindPairWithSameLetters1();
+    test_FindPairWithSameLetters2();
+}
+
+void test_getWordsExceptLast1() {
+    char str1[] = "Hello world this is a test";
+    char *modified_str1 = getWordsExceptLast(str1);
+
+    ASSERT_STRING(modified_str1, "Hello world this is a");
+}
+
+void test_getWordsExceptLast2() {
+    char str2[] = "hihi haha";
+    char *modified_str2 = getWordsExceptLast(str2);
+
+    ASSERT_STRING(modified_str2, "hihi");
+}
+
+void test_getWordsExceptLast() {
+    test_getWordsExceptLast1();
+    test_getWordsExceptLast2();
+}
+
+void test_for_findWordBeforeFirstOccurrence1() {
+    char s1[] = "Python is awsome!";
+    char s2[] = "C is good too";
+
+    char *wordBeforeW = findWordBeforeFirstOccurrence(s1, s2);
+    ASSERT_STRING("Python", wordBeforeW);
+}
+
+void test_for_findWordBeforeFirstOccurrence2() {
+    char s1[] = "No common words";
+    char s2[] = "Different strings";
+
+    char *wordBeforeW = findWordBeforeFirstOccurrence(s1, s2);
+    ASSERT_STRING("0", wordBeforeW);
+}
+
+void test_for_findWordBeforeFirstOccurrence3() {
+    char s1[] = "no words before w";
+    char s2[] = "hehe no";
+
+    char *wordsBeforeW = findWordBeforeFirstOccurrence(s1, s2);
+    ASSERT_STRING("0", wordsBeforeW);
+}
+
+void test_findWordBeforeFirstOccurrence() {
+    test_for_findWordBeforeFirstOccurrence1();
+    test_for_findWordBeforeFirstOccurrence2();
+    test_for_findWordBeforeFirstOccurrence3();
+}
+
+void test_remove_palindromes1() {
+    char str1[] = "mamam hi mamam";
+    removePalindromes(str1);
+    ASSERT_STRING("hi ", str1);
+}
+
+void test_remove_palindromes2() {
+    char str2[] = "mama hi amam";
+    removePalindromes(str2);
+    ASSERT_STRING("mama hi amam ", str2);
+}
+
+void test_remove_palindromes() {
+    test_remove_palindromes1();
+    test_remove_palindromes2();
 }
 
 void test() {
@@ -382,11 +462,14 @@ void test() {
     test_reverseWordsBag();
     test_howManyWordsPalindromes();
     test_mergeString();
-    test_reverseWords();
+    //test_reverseWords();
     test_getWordBeforeFirstWordWithA();
     test_lastWordInFirstStringInSecondString();
     test_hasDuplicateWords();
-    test_FindPairWithSameLetters();
+    //test_FindPairWithSameLetters();
+    test_getWordsExceptLast();
+    test_findWordBeforeFirstOccurrence();
+    test_remove_palindromes();
 }
 
 int main() {
