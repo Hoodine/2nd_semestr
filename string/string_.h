@@ -3,6 +3,7 @@
 
 #include <stdbool.h>
 #include "stdio.h"
+
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
 #define MAX_WORD_SIZE 20
@@ -29,15 +30,15 @@ typedef enum WordBeforeFirstWordWithAReturnCode {
 size_t strlen_(const char *begin);
 
 // Функции обработки слова
-char* strpbrk_(const char* str, const char* delim);
+char *strpbrk_(const char *str, const char *delim);
 
-char* strtok_(char* str, const char* delim);
+char *strtok_(char *str, const char *delim);
 
-char* strcat_(char* dest, const char* src);
+char *strcat_(char *dest, const char *src);
 
 void strcpy_(char *dest, const char *src);
 
-char* strncpy_(char *destination, const char *source, size_t num);
+char *strncpy_(char *destination, const char *source, size_t num);
 
 int strncmp_(const char *s1, const char *s2, size_t n);
 
@@ -56,24 +57,24 @@ char *findNonSpace(char *begin);
 // возвращает указатель на первый пробельный символ,
 // расположенный на ленте памяти начиная с адреса begin
 // или на первый ноль-символ.
-char* findSpace(char *begin);
+char *findSpace(char *begin);
 
 //Возвращает указатель на первый справа символ, отличный от пробельных,
 //расположенный на ленте памяти, начиная с rbegin (последний символ
 //строки, за которым следует ноль-символ) и заканчивая rend
 //(адрес символа перед началом строки). Если символ не найден, возвращается адрес rend.
-char* findNonSpaceReverse(char *rbegin, const char *rend);
+char *findNonSpaceReverse(char *rbegin, const char *rend);
 
 //Возвращает указатель на первый пробельный символ справа, расположенный на ленте
 //памяти, начиная с rbegin и заканчивая rend. Если символ не найден,
 //возвращается адрес rend.
-char* findSpaceReverse(char *rbegin, const char *rend);
+char *findSpaceReverse(char *rbegin, const char *rend);
 
 //записывает по адресу beginDestination
 //фрагмент памяти, начиная с адреса beginSource до endSource
 //возвращает указатель на следующий свободный фрагмент памяти в
 //destination О
-char* copy(const char *beginSource, const char *endSource,
+char *copy(const char *beginSource, const char *endSource,
            char *beginDestination);
 
 //Записывает по адресу
@@ -81,7 +82,7 @@ char* copy(const char *beginSource, const char *endSource,
 //заканчивая endSource, удовлетворяющие функции-предикату f. Функция
 //возвращает указатель на следующий свободный для записи фрагмент в
 //памяти П
-char* copyIf(char *beginSource, const char *endSource,
+char *copyIf(char *beginSource, const char *endSource,
              char *beginDestination, int (*f)(int));
 
 //Записывает по адресу
@@ -89,7 +90,7 @@ char* copyIf(char *beginSource, const char *endSource,
 //заканчивая rendSource, удовлетворяющие функции-предикату f.
 // Функция возвращает значение beginDestination по окончанию работы
 //функции К
-char* copyIfReverse(char *rbeginSource, const char *rendSource,
+char *copyIfReverse(char *rbeginSource, const char *rendSource,
                     char *beginDestination, int (*f)(int));
 
 // Возвращает указатель на конец строки А
@@ -167,7 +168,7 @@ size_t howManyWordsPalindromes(char *s);
 //объединяет две строки s1 и s2, разбивая их на слова
 //с помощью функции strtok_ и объединяя слова
 //в результирующую строку result
-void mergeStrings(char* s1, char* s2, char* result);
+void mergeStrings(char *s1, char *s2, char *result);
 
 //Преобразовывает строку, изменяя порядок следования слов в строке на обратный.
 void reverseWords(char *str);
@@ -188,7 +189,7 @@ int isWordInBagOfWords(WordDescriptor word, BagOfWords bag);
 WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
 
 // Определяет, есть ли в строке одинаковые слова
-bool hasDuplicateWords(char* s);
+bool hasDuplicateWords(char *s);
 
 // Сравнивает 2 слова между собой
 int compareWords(char *word1, char *word2);
