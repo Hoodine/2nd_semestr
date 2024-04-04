@@ -182,12 +182,42 @@ void test_replace() {
     test_replace3();
 }
 
+void test_areWordsOrdered1() {
+    char s[] = "";
+    assert(areWordsOrdered(s) == true);
+}
+void test_areWordsOrdered2() {
+    char s[] = "dream";
+    assert(areWordsOrdered(s) == true);
+}
+void test_areWordsOrdered3() {
+    char s[] = "pass op";
+    assert(areWordsOrdered(s) == true);
+}
+void test_areWordsOrdered4() {
+    char s[] = "pass pass";
+    assert(areWordsOrdered(s) == true);
+}
+void test_areWordsOrdered5() {
+    char s[] = "a ab baaa ca cd";
+    assert(areWordsOrdered(s) == true);
+}
+void test_areWordsOrdered() {
+    test_areWordsOrdered1();
+    test_areWordsOrdered2();
+    test_areWordsOrdered3();
+    test_areWordsOrdered4();
+    test_areWordsOrdered5();
+}
+
+
 void test() {
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
     test_digitsToStart();
     test_replaceDigitsToNumOfSpaces();
     test_replace();
+    test_areWordsOrdered();
 }
 
 int main() {

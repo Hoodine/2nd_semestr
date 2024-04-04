@@ -1,6 +1,7 @@
 #ifndef INC_2NDSEMESTR_STRING__H
 #define INC_2NDSEMESTR_STRING__H
 
+#include <stdbool.h>
 #include "stdio.h"
 #define MAX_STRING_SIZE 100
 #define MAX_N_WORDS_IN_STRING 100
@@ -110,5 +111,13 @@ void replaceDigitsToNumOfSpaces(char *s);
 
 // Заменяет все вхождения слова w1 на слово w2
 void replace(char *source, char *w1, char *w2);
+
+// Определяет, являются ли два слова одинаковыми
+bool areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+//Определяет, упорядочены ли лексикографически слова данного предложения
+bool areWordsOrdered(char *s);
+
+
 
 #endif
