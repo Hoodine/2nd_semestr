@@ -152,7 +152,8 @@ void getBagOfWords(BagOfWords *bag, char *s);
 char *copyReverse(char *rbeginSource, const char *rendSource, char
 *beginDestination);
 
-// Разбивает входную строку s на слова, затем переворачивает каждое слово и объединяет их в одну строку
+// Разбивает входную строку s на слова, затем переворачивает каждое слово
+// и объединяет их в одну строку
 void reverseWordsBag(char *s);
 
 // Проверяет, является ли заданное слово палиндромом.
@@ -172,7 +173,8 @@ void reverseWords(char *str);
 // Выводит перове слово перед словом с буквой А
 void printWordBeforeFirstWordWithA(char *s);
 
-WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, WordDescriptor *w);
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s,
+                                                               WordDescriptor *w);
 
 void wordDescriptorToString(WordDescriptor word, char *destination);
 
@@ -185,5 +187,15 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
 
 // Определяет, есть ли в строке одинаковые слова
 bool hasDuplicateWords(char* s);
+
+// Сравнивает 2 слова между собой
+int compareWords(char *word1, char *word2);
+
+// Разбирает строку
+void parseString(char *str, BagOfWords *bag);
+
+// Определяет, есть ли в данной строке пара слов, составленных
+// из одинакового набора букв.
+int findPairWithSameLetters(BagOfWords *bag);
 
 #endif

@@ -352,12 +352,24 @@ void test_lastWordInFirstStringInSecondString() {
     ASSERT_STRING("ha", str2);
 }
 
-void test_hasDuplicateWords(){
+void test_hasDuplicateWords() {
     char str1[] = "my friend Hello my";
     assert(hasDuplicateWords(str1) == true);
 
     char str2[] = "my friend Hello";
     assert(hasDuplicateWords(str2) == false);
+}
+
+void test_FindPairWithSameLetters() {
+    BagOfWords bag1;
+    bag1.size = 0;
+    parseString("hello world olleh dlrow", &bag1);
+    assert(findPairWithSameLetters(&bag1) == 1);
+
+    BagOfWords bag2;
+    bag2.size = 0;
+    parseString("hey hi ha", &bag2);
+    assert(findPairWithSameLetters(&bag2) == 0);
 }
 
 void test() {
@@ -374,6 +386,7 @@ void test() {
     test_getWordBeforeFirstWordWithA();
     test_lastWordInFirstStringInSecondString();
     test_hasDuplicateWords();
+    test_FindPairWithSameLetters();
 }
 
 int main() {
