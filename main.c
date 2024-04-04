@@ -352,6 +352,14 @@ void test_lastWordInFirstStringInSecondString() {
     ASSERT_STRING("ha", str2);
 }
 
+void test_hasDuplicateWords(){
+    char str1[] = "my friend Hello my";
+    assert(hasDuplicateWords(str1) == true);
+
+    char str2[] = "my friend Hello";
+    assert(hasDuplicateWords(str2) == false);
+}
+
 void test() {
     test_removeExtraSpaces();
     test_removeAdjacentEqualLetters();
@@ -365,6 +373,7 @@ void test() {
     test_reverseWords();
     test_getWordBeforeFirstWordWithA();
     test_lastWordInFirstStringInSecondString();
+    test_hasDuplicateWords();
 }
 
 int main() {
