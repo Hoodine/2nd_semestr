@@ -8,6 +8,9 @@
 
 char _stringBuffer[MAX_STRING_SIZE + 1]; // стринг баффер как ты меня заебал cyka
 
+BagOfWords _bag;
+BagOfWords _bag2;
+
 int randint(int n) {
     if ((n - 1) == RAND_MAX) {
         return rand();
@@ -327,8 +330,42 @@ bool areWordsOrdered(char *s) {
             word2 = word1;
             s = word1.end;
         }
+
         return true;
-    } else {
+    } else
         return true;
+}
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    WordDescriptor word;
+    bag->size = 0;
+    while (getWord(s, &word)) {
+        bag->words[bag->size] = word;
+        bag->size++;
+        s = word.end;
     }
 }
+
+char *copyReverse(char *rbeginSource, const char *rendSource, char
+*beginDestination) {
+    while (rbeginSource != rendSource)
+        (*beginDestination++) = *rbeginSource--;
+
+    return beginDestination;
+}
+
+void reverseWordsBag(char *s) {
+    *copy(s, getEndOfString(s), _stringBuffer) = '\0';
+    getBagOfWords(&_bag, _stringBuffer);
+    char *copyS = s;
+    for (int i = 0; i < _bag.size; i++) {
+        copyS = copyReverse(_bag.words[i].end - 1, _bag.words[i].begin -
+                                                   1, copyS);
+        *copyS++ = ' ';
+    }
+    if (copyS != s)
+        copyS--;
+
+    *copyS = '\0';
+}
+

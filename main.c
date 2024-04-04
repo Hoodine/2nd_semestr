@@ -186,28 +186,60 @@ void test_areWordsOrdered1() {
     char s[] = "";
     assert(areWordsOrdered(s) == true);
 }
+
 void test_areWordsOrdered2() {
     char s[] = "dream";
     assert(areWordsOrdered(s) == true);
 }
+
 void test_areWordsOrdered3() {
     char s[] = "pass op";
     assert(areWordsOrdered(s) == true);
 }
+
 void test_areWordsOrdered4() {
     char s[] = "pass pass";
     assert(areWordsOrdered(s) == true);
 }
+
 void test_areWordsOrdered5() {
     char s[] = "a ab baaa ca cd";
     assert(areWordsOrdered(s) == true);
 }
+
 void test_areWordsOrdered() {
     test_areWordsOrdered1();
     test_areWordsOrdered2();
     test_areWordsOrdered3();
     test_areWordsOrdered4();
     test_areWordsOrdered5();
+}
+
+void test_reverseWordsBag1() {
+    char s[MAX_STRING_SIZE] = "h e y";
+    reverseWordsBag(s);
+    
+    ASSERT_STRING("h e y", s);
+}
+
+void test_reverseWordsBag2() {
+    char s[MAX_STRING_SIZE] = "Artyom";
+    reverseWordsBag(s);
+
+    ASSERT_STRING("moytrA", s);
+}
+
+void test_reverseWordsBag3() {
+    char s[MAX_STRING_SIZE] = "";
+    reverseWordsBag(s);
+
+    ASSERT_STRING("", s);
+}
+
+void test_reverseWordsBag() {
+    test_reverseWordsBag1();
+    test_reverseWordsBag2();
+    test_reverseWordsBag3();
 }
 
 
@@ -218,6 +250,7 @@ void test() {
     test_replaceDigitsToNumOfSpaces();
     test_replace();
     test_areWordsOrdered();
+    test_reverseWordsBag();
 }
 
 int main() {
