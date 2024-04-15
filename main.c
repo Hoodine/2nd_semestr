@@ -195,6 +195,48 @@ int updateFileSavingOnlyIfMatchingSequence(const char *filename, char sequence[2
     return 0;
 }
 
+int updateFileWithTheLongestWordInString(const char *filename) {
+    FILE *file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("File opening error\n");
+        return 1;
+    }
+
+    FILE *result_file = fopen("1.txt", "w");
+    if (result_file == NULL) {
+        printf("File opening error\n");
+        fclose(file);
+        return 1;
+    }
+
+    char line[1000], longest_word[100];
+    int maxLen = 0;
+
+    while (fgets(line, sizeof(line), file)) {
+        char *token = strtok(line, " ");
+        while (token != NULL) {
+            if (strlen(token) > maxLen) {
+                maxLen = strlen(token);
+                strcpy(longest_word, token);
+            }
+
+            token = strtok(NULL, " ");
+        }
+
+        fprintf(result_file, "%s", longest_word);
+
+        maxLen = 0;
+        longest_word[0] = '\0';
+    }
+
+    fclose(file);
+    fclose(result_file);
+
+    copyFileContent("1.txt", filename);
+
+    return 0;
+}
+
 void assertTXT(const char *filename1, const char *filename2, char const *funcName) {
     FILE *f1 = fopen(filename1, "r");
     FILE *f2 = fopen(filename2, "r");
@@ -256,11 +298,21 @@ void test_updateFileSavingOnlyIfMatchingSequence_t4() {
         ASSERT_FILES(filename4, exp_file4);
 }
 
+void test_updateFileWithTheLongestWordInString_t5() {
+    const char *filename5 = "19_5.txt";
+    const char *exp_file5 = "19_5_test.txt";
+    int ans = updateFileWithTheLongestWordInString(filename5);
+
+    if (ans == 0)
+        ASSERT_FILES(filename5, exp_file5);
+}
+
 void test() {
     test_convertMatrixRowsToColumns_t1();
     test_convertFixedPointNumbersToFloatingPoint_t2();
     test_calculateValueOfExpression_t3();
     test_updateFileSavingOnlyIfMatchingSequence_t4();
+    test_updateFileWithTheLongestWordInString_t5();
 }
 
 int main() {
