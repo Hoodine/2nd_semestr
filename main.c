@@ -14,6 +14,10 @@ typedef struct {
     int coefficient;
 } Polynomial;
 
+typedef struct {
+    char *initials;
+    int score;
+} Sportsman;
 
 int randint(int n) {
     if ((n - 1) == RAND_MAX) {
@@ -85,6 +89,11 @@ int pow_(int base, int exp) {
     }
 
     return result;
+}
+
+void appendS(Sportsman *a, size_t *const size, Sportsman value) {
+    a[*size] = (Sportsman) value;
+    (*size)++;
 }
 
 int convertMatrixRowsToColumns(const char *filename) {
@@ -366,6 +375,46 @@ void assertTXT(const char *filename1, const char *filename2, char const *funcNam
     printf("Testing %s - %s passed\n", funcName, vopros());
 }
 
+void selectBestNSportsmen(char *filename, int n) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Error opening file\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("result.txt", "wb");
+    if (result_file == NULL) {
+        printf("Error creating resulting file.\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    size_t size = 0;
+    Sportsman persons[MAX_SIZE];
+    Sportsman person;
+    while (fread(&person, sizeof(Sportsman), 1, file)) {
+        appendS(persons, &size, person);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        Sportsman temp_player = {NULL, -999};
+        int idx = 0;
+        for (int j = 0; j < size; ++j) {
+            if (persons[j].score > temp_player.score) {
+                temp_player.score = persons[j].score;
+                temp_player.initials = persons[j].initials;
+                idx = j;
+            }
+        }
+
+        persons[idx].score = -999;
+        fwrite(&temp_player, sizeof(Sportsman), 1, result_file);
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
+
 void test_convertMatrixRowsToColumns_t1() {
     const char *filename1 = "19_1.txt";
     const char *exp_file1 = "19_1_test.txt";
@@ -510,6 +559,29 @@ void test_replaceNonSymmetricMatrixWithTransposed_t8() {
     test_replaceNonSymmetricMatrixWithTransposed3();
 }
 
+void test_selectBestNSportsmen1() {
+    char *filename9 = "list_of_athletes.txt";
+    char *exp_file9 = "team_result.txt";
+    char *result = "result.txt";
+
+    selectBestNSportsmen(filename9, 2);
+    ASSERT_FILES(exp_file9, result);
+}
+
+void test_selectBestNSportsmen2() {
+    char *filename9 = "1_list_of_athletes.txt";
+    char *exp_file9 = "1_team_result.txt";
+    char *result = "result.txt";
+
+    selectBestNSportsmen(filename9, 2);
+    ASSERT_FILES(exp_file9, result);
+}
+
+void test_selectBestNSportsmen_t9() {
+    test_selectBestNSportsmen1();
+    test_selectBestNSportsmen2();
+}
+
 void test() {
     test_convertMatrixRowsToColumns_t1();
     test_convertFixedPointNumbersToFloatingPoint_t2();
@@ -519,7 +591,7 @@ void test() {
     test_deletePolynomialsWithRoot_t6();
     test_sortPositiveAndNegative_t7();
     test_replaceNonSymmetricMatrixWithTransposed_t8();
-    
+    test_selectBestNSportsmen_t9();
 }
 
 int main() {
