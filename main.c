@@ -19,6 +19,18 @@ typedef struct {
     int score;
 } Sportsman;
 
+typedef struct {
+    char *name;
+    int unit_price;
+    int all_price;
+    int amount;
+} Goods;
+
+typedef struct {
+    char *name;
+    int amount;
+} OrderedGoods;
+
 int randint(int n) {
     if ((n - 1) == RAND_MAX) {
         return rand();
@@ -415,6 +427,48 @@ void selectBestNSportsmen(char *filename, int n) {
     fclose(result_file);
 }
 
+void updateFileWithReleasedGoods(char *filename_f, char *filename_g) {
+    FILE *file_f = fopen(filename_f, "rb");
+    if (file_f == NULL) {
+        printf("Error opening file F\n");
+        exit(-3);
+    }
+
+    FILE *file_g = fopen(filename_g, "rb");
+    if (file_g == NULL) {
+        printf("Error opening file G\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("result.txt", "wb");
+    if (result_file == NULL) {
+        printf("Error creating resulting file.\n");
+        fclose(file_f);
+        fclose(file_g);
+        exit(-3);
+    }
+
+    Goods stuff;
+    OrderedGoods ordered_stuff;
+    while (fread(&ordered_stuff, sizeof(OrderedGoods), 1, file_g)) {
+        while (fread(&stuff, sizeof(Goods), 1, file_f)) {
+            if (ordered_stuff.name == stuff.name) {
+                int price = ordered_stuff.amount * stuff.unit_price;
+                stuff.amount = stuff.amount - ordered_stuff.amount;
+                stuff.all_price = stuff.all_price - price;
+                if (stuff.amount > 0)
+                    fwrite(&stuff, sizeof(Goods), 1, result_file);
+                break;
+            } else
+                fwrite(&stuff, sizeof(Goods), 1, result_file);
+        }
+    }
+
+    fclose(file_f);
+    fclose(file_g);
+    fclose(result_file);
+}
+
 void test_convertMatrixRowsToColumns_t1() {
     const char *filename1 = "19_1.txt";
     const char *exp_file1 = "19_1_test.txt";
@@ -582,6 +636,42 @@ void test_selectBestNSportsmen_t9() {
     test_selectBestNSportsmen2();
 }
 
+void test_updateFileWithReleasedGoods1() {
+    char *filename10_f = "list_of_stuff.txt";
+    char *filename10_g = "list_of_orders.txt";
+    char *exp_file10 = "upd_list_stuff.txt";
+    char *result = "result.txt";
+
+    updateFileWithReleasedGoods(filename10_f, filename10_g);
+    ASSERT_FILES(exp_file10, result);
+}
+
+void test_updateFileWithReleasedGoods2() {
+    char *filename10_f = "1_list_of_stuff.txt";
+    char *filename10_g = "1_list_of_ordered.txt";
+    char *exp_file10 = "1_upd_list_stuff.txt";
+    char *result = "result.txt";
+
+    updateFileWithReleasedGoods(filename10_f, filename10_g);
+    ASSERT_FILES(exp_file10, result);
+}
+
+void test_updateFileWithReleasedGoods3() {
+    char *filename10_f = "2_list_of_stuff.txt";
+    char *filename10_g = "2_list_of_ordered.txt";
+    char *exp_file10 = "2_upd_list_stuff.txt";
+    char *result = "result.txt";
+
+    updateFileWithReleasedGoods(filename10_f, filename10_g);
+    ASSERT_FILES(exp_file10, result);
+}
+
+void test_updateFileWithReleasedGoods_t10() {
+    test_updateFileWithReleasedGoods1();
+    test_updateFileWithReleasedGoods2();
+    test_updateFileWithReleasedGoods3();
+}
+
 void test() {
     test_convertMatrixRowsToColumns_t1();
     test_convertFixedPointNumbersToFloatingPoint_t2();
@@ -592,6 +682,7 @@ void test() {
     test_sortPositiveAndNegative_t7();
     test_replaceNonSymmetricMatrixWithTransposed_t8();
     test_selectBestNSportsmen_t9();
+    test_updateFileWithReleasedGoods_t10();
 }
 
 int main() {
