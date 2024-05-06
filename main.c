@@ -240,6 +240,55 @@ void sixthTask(const char *s, size_t length, char *result, size_t *res_len) {
     *res_len = calc_res_len;
 }
 
+int searchMaxIdx(const int array[], int start, int end) {
+    if (start > end) {
+        return end + 1;
+    } else {
+        int max_num_idx = start;
+        for (int ind = start + 1; ind <= end; ind++) {
+            if (array[ind] > array[max_num_idx])
+                max_num_idx = ind;
+        }
+
+        return max_num_idx;
+    }
+}
+
+void buildNodes(node *p, int array[], int start, int end, bool isLeft) {
+    int max_num_idx = searchMaxIdx(array, start, end);
+    if (max_num_idx == end + 1) {
+        if (isLeft)
+            p->left = NULL;
+        else
+            p->right = NULL;
+
+        printf("null ");
+
+        return;
+    } else {
+        printf("%d ", array[max_num_idx]);
+        node *new_node = insert(p, array[max_num_idx], isLeft);
+        buildNodes(new_node, array, start, max_num_idx - 1, true);
+        buildNodes(new_node, array, max_num_idx + 1, end, false);
+    }
+}
+
+
+void seventhTask(int array[], int lengthArray) {
+    if (lengthArray == 0) {
+        return;
+    } else {
+        int maxNumInd = searchMaxIdx(array, 0, lengthArray - 1);
+        node *newNode = createNode(array[maxNumInd]);
+        printf("%d ", array[maxNumInd]);
+
+        buildNodes(newNode, array, 0, maxNumInd - 1, true);
+        buildNodes(newNode, array, maxNumInd + 1, lengthArray - 1, false);
+
+        printf("\n");
+    }
+}
+
 void test_firstTask() {
     matrix got = createMatrixFromArray((int[]) {
                                                0, 0, 0,
@@ -354,6 +403,19 @@ void test_sixthTask() {
     assert(strcmp(got2, expected2) == 0);
 }
 
+void test_seventhTask() {
+    int array1[6] = {3, 2, 1, 6, 0, 5};
+    int len1 = 6;
+
+    seventhTask(array1, len1);
+
+    int array2[3] = {3, 2, 1};
+    int len2 = 3;
+
+    seventhTask(array2, len2);
+}
+
+
 int main() {
     test_firstTask();
     test_secondTask();
@@ -361,6 +423,7 @@ int main() {
     test_fourthTask();
     test_fifthTask();
     test_sixthTask();
+    test_seventhTask();
 
     return 0;
 }
