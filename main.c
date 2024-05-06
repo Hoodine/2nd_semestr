@@ -18,6 +18,16 @@ typedef struct node {
     struct node *right;
 } node;
 
+FILE *openFile(char *fileName, char *action) {
+    FILE *file = fopen(fileName, action);
+    if (file == NULL) {
+        printf("Ошибка при открытии файла\n");
+        exit(1);
+    }
+
+    return file;
+}
+
 node *createNode(int k) {
     node *new_node = (node *) malloc(sizeof(node));
     new_node->key = k;
@@ -290,12 +300,69 @@ void seventhTask(int array[], int lengthArray) {
 }
 
 void eighthTask(const char *s, size_t length,
-                         const size_t indexes[], char *new_s) {
+                const size_t indexes[], char *new_s) {
     for (size_t ind = 0; ind < length; ind++) {
         new_s[ind] = s[indexes[ind]];
     }
-    
+
     new_s[length] = '\0';
+}
+
+void fillingFile(int nums_arr[], size_t len, char *fileName) {
+    FILE *file = openFile(fileName, "w");
+    for (size_t ind = 0; ind < len; ind++) {
+        fprintf(file, "%d ", nums_arr[ind]);
+    }
+
+    fclose(file);
+}
+
+void readingNumsFilteringAndWriting(vector *v, char *rFileName, int
+controlNum, char *wFileName) {
+    FILE *rFile = openFile(rFileName, "r");
+    FILE *wFile = openFile(wFileName, "w");
+    int num;
+    while (fscanf(rFile, "%d", &num) == 1) {
+        if (num < controlNum) {
+            pushBack(v, num);
+            fprintf(wFile, "%d ", num);
+        }
+    }
+
+    fclose(rFile);
+    fclose(wFile);
+}
+
+void ninthTask(int numsArray[], size_t lengthArray, int controlNum, char
+*firstFileName, char *secondFileName, vector *v) {
+    fillingFile(numsArray, lengthArray, firstFileName);
+    readingNumsFilteringAndWriting(v, firstFileName, controlNum,
+                                   secondFileName);
+
+    shrinkToFit(v);
+}
+
+void fillingFileWithText(char *fileName, char *text) {
+    FILE *file = openFile(fileName, "w");
+
+    fprintf(file, "%s", text);
+
+    fclose(file);
+}
+
+void tenthTask(char *fileName, size_t count_output_lines, char *text) {
+    fillingFileWithText(fileName, text);
+    FILE *file = openFile(fileName, "r");
+    char line[127];
+    size_t count = 0;
+    while (fgets(line, 127, file) != NULL) {
+        printf("%s", line);
+        count++;
+        if (count == count_output_lines) {
+            printf("Please, press Ctrl + C\n");
+            while (getch() != 3);
+        }
+    }
 }
 
 void test_firstTask() {
@@ -444,6 +511,32 @@ void test_eighthTask() {
     assert(strcmp(got2, expected2) == 0);
 }
 
+void test_ninthTask() {
+    int num_arr[5] = {2, 4, 1, 3, 5};
+    size_t lengthArray = 5;
+    int control_num = 3;
+    char *firstFileName = "../firstFile.txt";
+    char *secondFileName = "../secondFile.txt";
+    vector v = createVector(10);
+    ninthTask(num_arr, lengthArray, control_num, firstFileName, secondFileName, &v);
+    size_t exp_len = 2;
+    int exp_arr[2] = {2, 1};
+
+    assert(exp_len == v.size);
+
+    for (size_t ind = 0; ind < exp_len; ind++) {
+        assert(v.data[ind] == exp_arr[ind]);
+    }
+}
+
+void test_tenthTask() {
+    char *fileName = "../tenthTask.txt";
+    size_t count_output_lines = 3;
+    char text[200] = "123\n456\n789\n0";
+
+    tenthTask(fileName, count_output_lines, text);
+}
+
 int main() {
     test_firstTask();
     test_secondTask();
@@ -453,7 +546,8 @@ int main() {
     test_sixthTask();
     test_seventhTask();
     test_eighthTask();
-
+    test_ninthTask();
+    test_tenthTask();
 
     return 0;
 }
