@@ -11,6 +11,7 @@ add_executable(2ndsemestr main.c
         libs/data_structures/bitset/bitset.c
         libs/data_structures/bitset/bitset.h
         libs/algorithms/array/array.c
+        DM/DM.c
 )
 
 add_library(str string/string_.h string/string_.c
