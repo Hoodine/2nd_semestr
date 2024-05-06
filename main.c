@@ -5,6 +5,7 @@
 #include <assert.h>
 #include "libs/data_structures/matrix/matrix.h"
 #include "libs/data_structures/vector/vector.h"
+#include "string.h"
 
 typedef struct domain {
     size_t visits;
@@ -89,6 +90,96 @@ void secondTask(matrix m, matrix *newM, size_t rows, size_t cols) {
     }
 }
 
+int sortedNumsCompare(const void *first_num, const void *second_num) {
+    return (*(int *) first_num - *(int *) second_num);
+}
+
+void fillingNumFrameSorted(int *array, matrix m, size_t idx_row, size_t idx_col) {
+    size_t arrayInd = 0;
+    for (size_t midx_row = idx_row - 1; midx_row < idx_row + 2; midx_row++) {
+        for (size_t midx_col = idx_col - 1; midx_col < idx_col + 2; midx_col++) {
+            if (midx_row != idx_row || midx_col != idx_col)
+                array[arrayInd++] = m.values[midx_row][midx_col];
+        }
+    }
+
+    qsort(array, 8, sizeof(int), sortedNumsCompare);
+}
+
+void thirdTask(matrix *m, size_t size) {
+    int frame[8];
+    for (size_t idx_row = 1; idx_row < size - 1; idx_row++) {
+        for (size_t idx_col = 1; idx_col < size - 1; idx_col++) {
+            fillingNumFrameSorted(frame, *m, idx_row, idx_col);
+            int median = (frame[3] + frame[4]) / 2;
+            m->values[idx_row][idx_col] = median;
+        }
+    }
+}
+
+size_t searchDomainInResults(const domain results[], size_t size, char *s) {
+    for
+            (size_t ind = 0; ind < size; ind++) {
+        if (strcmp(results[ind].name, s) == 0) {
+            return ind;
+        }
+    }
+    return size;
+}
+
+bool searchNumFromArray(const size_t array[], size_t length, size_t num) {
+    for (size_t ind = 0; ind < length; ind++) {
+        if (num == array[ind])
+            return true;
+    }
+
+    return false;
+}
+
+void handlerDotPrtNotNull(domain *array, size_t ind, char *dotPtr,
+                          domain results[], size_t *sizeResult) {
+    strcpy(array[ind].name, dotPtr + 1);
+    size_t pos = searchDomainInResults(results, *sizeResult, array[ind].name);
+    if (pos == *sizeResult) {
+        results[*sizeResult] = array[ind];
+        *sizeResult += 1;
+    } else {
+        results[pos].visits += array[ind].visits;
+    }
+}
+
+void outputResultDomains(domain *results, size_t size) {
+    for (size_t ind = 0; ind < size; ind++) {
+        printf("%zd %s\n", results[ind].visits, results[ind].name);
+    }
+}
+
+void fourthTask(domain array[], size_t size) {
+    size_t close_idxs[size];
+    size_t count_close = 0;
+    domain results[200];
+    size_t size_res = 0;
+
+    for (size_t ind = 0; ind < size; ind++)
+        results[size_res++] = array[ind];
+
+    while (count_close != size) {
+        for (size_t ind = 0; ind < size; ind++) {
+            if (!searchNumFromArray(close_idxs, count_close, ind)) {
+                char *dot_ptr;
+                dot_ptr = strchr(array[ind].name, '.');
+
+                if (dot_ptr != NULL)
+                    handlerDotPrtNotNull(array, ind, dot_ptr, results, &size_res);
+                else
+                    close_idxs[count_close++] = ind;
+            }
+        }
+    }
+
+    outputResultDomains(results, size_res);
+}
+
 void test_firstTask() {
     matrix got = createMatrixFromArray((int[]) {
                                                0, 0, 0,
@@ -130,33 +221,6 @@ void test_secondTask() {
     assert(areTwoMatricesEqual(&got, &expected));
 }
 
-int sortedNumsCompare(const void *first_num, const void *second_num) {
-    return (*(int *) first_num - *(int *) second_num);
-}
-
-void fillingNumFrameSorted(int *array, matrix m, size_t idx_row, size_t idx_col) {
-    size_t arrayInd = 0;
-    for (size_t midx_row = idx_row - 1; midx_row < idx_row + 2; midx_row++) {
-        for (size_t midx_col = idx_col - 1; midx_col < idx_col + 2; midx_col++) {
-            if (midx_row != idx_row || midx_col != idx_col)
-                array[arrayInd++] = m.values[midx_row][midx_col];
-        }
-    }
-
-    qsort(array, 8, sizeof(int), sortedNumsCompare);
-}
-
-void thirdTask(matrix *m, size_t size) {
-    int frame[8];
-    for (size_t idx_row = 1; idx_row < size - 1; idx_row++) {
-        for (size_t idx_col = 1; idx_col < size - 1; idx_col++) {
-            fillingNumFrameSorted(frame, *m, idx_row, idx_col);
-            int median = (frame[3] + frame[4]) / 2;
-            m->values[idx_row][idx_col] = median;
-        }
-    }
-}
-
 void test_thirdTask() {
     size_t size = 3;
     matrix got = createMatrixFromArray((int[]) {
@@ -174,10 +238,21 @@ void test_thirdTask() {
     assert(areTwoMatricesEqual(&got, &expected));
 }
 
+void test_fourthTask() {
+    size_t size = 4;
+    domain array[4] = {{900, "google.mail.com"},
+                       {50,  "yahoo.com"},
+                       {1,   "intel.mail.com"},
+                       {5,   "wiki.org"}};
+
+    fourthTask(array, size);
+}
+
 int main() {
     test_firstTask();
     test_secondTask();
     test_thirdTask();
+    test_fourthTask();
 
     return 0;
 }
